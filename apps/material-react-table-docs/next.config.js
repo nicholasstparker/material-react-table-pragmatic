@@ -10,6 +10,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/docs/getting-started/migrating-to-v2',
+        destination: '/docs/getting-started/migrating-to-v3',
+        permanent: true,
+      },
+      {
         source: '/migrating-to-v2',
         destination: '/docs/getting-started/migrating-to-v2',
         permanent: true,
