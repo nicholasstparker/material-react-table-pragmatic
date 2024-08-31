@@ -160,12 +160,7 @@ const useFetchUsers = ({
       sorting, //refetch when sorting changes
     ],
     queryFn: async () => {
-      const fetchURL = new URL(
-        '/api/data',
-        process.env.NODE_ENV === 'production'
-          ? 'https://www.material-react-table.com'
-          : 'http://localhost:3000',
-      );
+      const fetchURL = new URL('/api/data', location.origin);
 
       //read our state and pass it to the API as query params
       fetchURL.searchParams.set(
@@ -199,9 +194,7 @@ const useFetchUserInfo = (params, options) => {
           .replaceAll('.', '')
           .replaceAll('(', '')
           .replaceAll(')', '')}`,
-        process.env.NODE_ENV === 'production'
-          ? 'https://www.material-react-table.com'
-          : 'http://localhost:3000',
+        location.origin,
       );
 
       //use whatever fetch library you want, fetch, axios, etc

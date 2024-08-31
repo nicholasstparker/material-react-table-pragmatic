@@ -134,12 +134,7 @@ const useFetchUsers = ({ pagination, sorting, expandedRowIds }) => {
       expandedRowIds,
     ],
     queryFn: async () => {
-      const fetchURL = new URL(
-        '/api/treedata',
-        process.env.NODE_ENV === 'production'
-          ? 'https://www.material-react-table.com'
-          : 'http://localhost:3000',
-      );
+      const fetchURL = new URL('/api/treedata', location.origin);
 
       //read our state and pass it to the API as query params
       fetchURL.searchParams.set(
