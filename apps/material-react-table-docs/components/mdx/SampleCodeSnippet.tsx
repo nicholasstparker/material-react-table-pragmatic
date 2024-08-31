@@ -110,7 +110,7 @@ export const SampleCodeSnippet = ({ paperSxProps, ...props }: Props) => {
               {tokens.map((line, i) => (
                 <div
                   key={i}
-                  {...getLineProps({ line, key: i })}
+                  {...getLineProps({ line })}
                   style={{
                     textDecoration: line[0].content.startsWith('-')
                       ? 'line-through'
@@ -123,7 +123,7 @@ export const SampleCodeSnippet = ({ paperSxProps, ...props }: Props) => {
                   }}
                 >
                   {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
+                    <span key={key} {...getTokenProps({ token })} />
                   ))}
                 </div>
               ))}

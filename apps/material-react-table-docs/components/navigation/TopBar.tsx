@@ -151,7 +151,7 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
               <Select
                 onOpen={() => plausible('version-select')}
                 MenuProps={{ disableScrollLock: true }}
-                value="v2"
+                value="v3"
                 size="small"
                 sx={{ m: '8px', height: '30px' }}
               >
@@ -163,7 +163,15 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
                     V1
                   </MenuItem>
                 </Link>
-                <MenuItem sx={{ m: 0 }} value="v2">
+                <Link
+                  legacyBehavior
+                  href={`https://v2.material-react-table.com/${pathname}`}
+                >
+                  <MenuItem sx={{ m: 0 }} value="v1">
+                    V2
+                  </MenuItem>
+                </Link>
+                <MenuItem sx={{ m: 0 }} value="v3">
                   V3
                 </MenuItem>
               </Select>

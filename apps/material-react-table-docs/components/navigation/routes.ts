@@ -37,8 +37,8 @@ export const routes: Array<RouteItem> = [
         label: 'Usage',
       },
       {
-        href: '/docs/getting-started/migrating-to-v2',
-        label: 'Migrating to v2',
+        href: '/docs/getting-started/migrating-to-v3',
+        label: 'Migrating to v3',
       },
     ],
   },

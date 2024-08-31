@@ -1,0 +1,66 @@
+import Head from 'next/head';
+import { InstallCommand } from '../../../components/mdx/InstallCommand';
+
+<Head>
+  <title>
+    {'Migrating to Material React Table V3 - Material React Table V3 Docs'}
+  </title>
+  <meta
+    name="description"
+    content="Migrating to Material React Table V3 from V2"
+  />
+</Head>
+
+## Migrating to Material React Table V3 from V2
+
+This will be the easiest MRT upgrade ever! Material React Table V3 is mostly just a peer dependency bump to Material UI V6. The [Material UI V6 migration](https://mui.com/material-ui/migration/upgrade-to-v6/) is also relatively easy. This should take less than an hour to upgrade in most cases. Definitely a stark contrast from the Material UI V4 to V5 upgrade 💀.
+
+### New Feature Highlights
+
+1. Compatible with Material UI V6
+2. **Almost no other changes**. MRT is not taking advantage of the new optional features in Material UI V6 yet. MRT V3 will serve as an easy upgrade target for those who are just looking to upgrade their Material UI package versions.
+
+### Upgrade Dependencies
+
+1. Upgrade Material UI to V6
+
+Before upgrading Material React Table, you need to upgrade Material UI to V6. You will spend most of your time here. Follow the [Material UI V6 migration guide](https://mui.com/material-ui/migration/upgrade-to-v6/) to upgrade your Material UI packages.
+
+You can get started by running the following command to set the mui-related dependencies to the latest versions in your `package.json`. This will not perform the full install yet.
+
+```bash
+npx npm-check-updates -u @mui/material @mui/x-date-pickers @mui/icons-material @emotion/react @emotion/styled
+```
+
+And then perform the actual install (downloading the new versions):
+
+<InstallCommand packagesString="@mui/material @mui/x-date-pickers @mui/icons-material @emotion/react @emotion/styled" />
+
+2. Upgrade Material React Table to V3
+
+Run this command to set the `material-react-table` dependency to the latest version in your `package.json`. This will not perform the full install yet.
+
+```bash
+npx npm-check-updates -u material-react-table
+```
+
+And then perform the actual install (downloading the new version):
+
+<InstallCommand packagesString="material-react-table" />
+
+You should now be on Material React Table V3! Look for any code or type errors in your project and fix them as needed.
+
+### Breaking Changes
+
+- `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages
+- `@mui/x-date-pickers` v7.15.0 is now a minimum required dependency
+
+- Removed deprecated `MRT_Virtualizer` type in favor of separate `MRT_RowVirtualizer` and `MRT_ColumnVirtualizer` types
+
+- Removed deprecated `text` in favor of the more consistent `label` type in dropdown/autocomplete/select option types.
+
+> Can I uninstall Emotion Yet? No, Emotion is still required for Material React Table V3, but it won't be for long. MRT V4 will remove the Emotion dependency in favor of [Pigment CSS](https://mui.com/blog/introducing-pigment-css/).
+
+<br />
+
+Is anything missing from this v3 migration guide? Make a PR or join the [Discord](https://discord.gg/5wqyRx6fnm) to discuss.

@@ -15,7 +15,7 @@ export const getValueAndLabel = (
       label = option;
       value = option;
     } else {
-      label = option.label ?? option.text ?? option.value;
+      label = option.label ?? option.value;
       value = option.value ?? label;
     }
   }

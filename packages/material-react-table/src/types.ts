@@ -89,10 +89,6 @@ export type Xor<A, B> =
 export type DropdownOption =
   | {
       label?: string;
-      /**
-       * @deprecated use `label` instead
-       */
-      text?: string;
       value: any;
     }
   | string;
@@ -137,13 +133,6 @@ export type MRT_RowVirtualizer<
 > = Virtualizer<TScrollElement, TItemElement> & {
   virtualRows: MRT_VirtualItem[];
 };
-
-/**
- * @deprecated use `MRT_ColumnVirtualizer` or `MRT_RowVirtualizer` instead
- */
-export type MRT_Virtualizer<_TScrollElement = any, _TItemElement = any> =
-  | MRT_ColumnVirtualizer
-  | MRT_RowVirtualizer;
 
 export type MRT_ColumnHelper<TData extends MRT_RowData> = {
   accessor: <
@@ -822,7 +811,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
     LiteralUnion<string & MRT_FilterOption>
   > | null;
   columnVirtualizerInstanceRef?: MutableRefObject<
-    MRT_ColumnVirtualizer | MRT_Virtualizer | null
+    MRT_ColumnVirtualizer | null
   >;
   columnVirtualizerOptions?:
     | ((props: {
@@ -1283,7 +1272,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
     | 'top'
     | 'top-and-bottom';
   rowVirtualizerInstanceRef?: MutableRefObject<
-    MRT_RowVirtualizer | MRT_Virtualizer | null
+    MRT_RowVirtualizer | null
   >;
   rowVirtualizerOptions?:
     | ((props: {

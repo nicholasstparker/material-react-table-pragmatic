@@ -1,5 +1,5 @@
 {
-  "version": "2.13.2",
+  "version": "3.0.0-alpha.0",
   "license": "MIT",
   "name": "material-react-table",
   "description": "A fully featured Material UI V6 implementation of TanStack React Table V8, written from the ground up in TypeScript.",
@@ -92,7 +92,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-is": "^18.3.1",
-    "rollup": "^4.21.2",
+    "rollup": "^2.79.1",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-dts": "^6.1.1",
@@ -105,11 +105,11 @@
     "vite": "^5.4.2"
   },
   "peerDependencies": {
-    "@emotion/react": ">=11.11",
-    "@emotion/styled": ">=11.11",
-    "@mui/icons-material": ">=5.11",
-    "@mui/material": ">=5.13",
-    "@mui/x-date-pickers": ">=6.15.0",
+    "@emotion/react": ">=11.13",
+    "@emotion/styled": ">=11.13",
+    "@mui/icons-material": ">=6",
+    "@mui/material": ">=6",
+    "@mui/x-date-pickers": ">=7.15",
     "react": ">=17.0",
     "react-dom": ">=17.0"
   },

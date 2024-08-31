@@ -451,7 +451,7 @@ export const SourceCodeSnippet = ({
                     {tokens.map((line, i) => (
                       <div
                         key={i}
-                        {...getLineProps({ line, key: i })}
+                        {...getLineProps({ line })}
                         style={{
                           ...style,
                           display:
@@ -485,10 +485,7 @@ export const SourceCodeSnippet = ({
                             return null;
                           }
                           return (
-                            <span
-                              key={key}
-                              {...getTokenProps({ token, key })}
-                            />
+                            <span key={key} {...getTokenProps({ token })} />
                           );
                         })}
                       </div>
