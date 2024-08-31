@@ -6,7 +6,7 @@ import Example from '../../../examples/enable-column-resizing';
 import RTLExample from '../../../examples/localization-i18n-fa';
 
 <Head>
-  <title>{'Column Resizing Guide - Material React Table V2 Docs'}</title>
+  <title>{'Column Resizing Guide - Material React Table V3 Docs'}</title>
   <meta
     name="description"
     content="How to use and customize the column resizing features of Material React Table"
@@ -90,7 +90,7 @@ const table = useMaterialReactTable({
 
 ### Column Growing
 
-> MRT V2 has a new "opposite" behavior in regards to column sizes when column resizing is enabled compared to MRT V2
+> MRT V3 has a new "opposite" behavior in regards to column sizes when column resizing is enabled compared to MRT V3
 
 When column resizing is enabled, by default, a layoutMode of `"grid-no-grow"` will be applied internally. This means that columns will have an absolute size and they will NOT grow to fill in the remaining space of the table. You can let columns grow to fill in the remaining space by changing the `layoutMode` back to `"grid"` or `"semantic"`.
 
@@ -121,7 +121,7 @@ This is discussed in more detail in the [Column Size Guide](/docs/guides/column-
 
 ### Column Resize Direction
 
-> New in V2.1
+> New in V3.1
 
 If you are displaying your table in a RTL (right-to-left) language, you can set the `columnResizeDirection` table option to `"rtl"` to make the column resize handle appear on the left side of the column instead of the right side. This may behave differently depending on which Emotion or MUI theme settings you have enabled.
 

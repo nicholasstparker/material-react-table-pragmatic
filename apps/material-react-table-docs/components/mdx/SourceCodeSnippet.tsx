@@ -268,10 +268,10 @@ export const SourceCodeSnippet = ({
             variant="outlined"
             closeText="Don't show again"
           >
-            <AlertTitle>This example is written for MRT V2.</AlertTitle>
+            <AlertTitle>This example is written for MRT V3.</AlertTitle>
             If your app is still using MRT V1, either{' '}
             <Link href="/migrating-to-v2" passHref legacyBehavior>
-              <MuiLink>Upgrade to MRT V2</MuiLink>
+              <MuiLink>Upgrade to MRT V3</MuiLink>
             </Link>{' '}
             or use the{' '}
             <MuiLink
@@ -282,7 +282,7 @@ export const SourceCodeSnippet = ({
             >
               V1 Docs
             </MuiLink>{' '}
-            instead. (useMaterialReactTable only exists in V2)
+            instead. (useMaterialReactTable only exists in V3)
           </Alert>
         </Collapse>
         <Box

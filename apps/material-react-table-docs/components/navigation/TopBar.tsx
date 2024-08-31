@@ -167,7 +167,7 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
                   </MenuItem>
                 </Link>
                 <MenuItem sx={{ m: 0 }} value="v2">
-                  V2
+                  V3
                 </MenuItem>
               </Select>
             </ThemeProvider>

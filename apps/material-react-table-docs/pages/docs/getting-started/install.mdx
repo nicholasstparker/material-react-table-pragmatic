@@ -3,21 +3,21 @@ import { InstallCommand } from '../../../components/mdx/InstallCommand';
 import { FAQs } from '../../../components/mdx/FAQs';
 
 <Head>
-  <title>{'Installation - Material React Table V2 Docs'}</title>
+  <title>{'Installation - Material React Table V3 Docs'}</title>
   <meta name="description" content="How to install Material React Table" />
 </Head>
 
 ## Installation
 
-> `material-react-table` requires **Material UI V5** packages as dependencies in your project.
+> `material-react-table` requires **Material UI V6** packages as dependencies in your project.
 >
 > If you are already using Material UI, you probably already have most of these peer dependencies installed.
 >
 > Just double-check that you have the following in your package.json, or use the [full install commands](<#install-with-required-peer-dependencies-(recommended)>) below.
 >
-> 1.  `@mui/material` (v5)
+> 1.  `@mui/material` (V6)
 > 2.  `@mui/x-date-pickers` (v6) - (New in MRT v2)
-> 3.  `@mui/icons-material` (v5)
+> 3.  `@mui/icons-material` (V6)
 > 4.  `@emotion/react` (v11)
 > 5.  `@emotion/styled` (v11)
 > 6.  `react` and `react-dom` (v17+)
@@ -53,7 +53,7 @@ Or You might be trying to import `MaterialReactTable` from the default export st
 + import { MaterialReactTable } from 'material-react-table'
 ```
 
-Or you probably do not have the correct version of Material UI installed. Make sure all material ui packages are at least v5.11 or higher.
+Or you probably do not have the correct version of Material UI installed. Make sure all material ui packages are at least V6.11 or higher.
 
 If you are using an older version of `webpack` or `create-react-app` and get an error like this:
 
@@ -77,7 +77,7 @@ Then try upgrading either `webpack` or `react-scripts` to the latest versions.
         name: 'Why is React 17 or 18 required for Material React Table?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '<p>React 17 or later is required by Material UI v5 itself. Some event listeners on Material UI TextField components will not work with React 16.x.</p>',
+          text: '<p>React 17 or later is required by Material UI V6 itself. Some event listeners on Material UI TextField components will not work with React 16.x.</p>',
         },
       },
       {

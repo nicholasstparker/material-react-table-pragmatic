@@ -68,7 +68,7 @@ const HomePage = () => {
                 },
               }}
             >
-              V2
+              V3
             </Box>
           </Box>
         </Typography>
@@ -99,7 +99,7 @@ const HomePage = () => {
               target="_blank"
               rel="noopener"
             >
-              Material&nbsp;UI<sup>V5</sup>
+              Material&nbsp;UI<sup>V6</sup>
             </MuiLink>
           </Link>{' '}
           and&nbsp;
