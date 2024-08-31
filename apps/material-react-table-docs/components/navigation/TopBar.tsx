@@ -3,11 +3,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { usePlausible } from 'next-plausible';
 import {
-  AppBar as MuiAppBar,
+  AppBar,
   Box,
-  IconButton as MuiIconButton,
-  styled,
-  Toolbar as MuiToolbar,
+  IconButton,
+  Toolbar,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -26,21 +25,6 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { useThemeContext } from '../../styles/ThemeContext';
 import docsearch from '@docsearch/js';
 import '@docsearch/css';
-
-const AppBar = styled(MuiAppBar)({
-  zIndex: 5,
-});
-
-const Toolbar = styled(MuiToolbar)({
-  display: 'flex',
-  justifyContent: 'space-between',
-});
-
-const IconButton = styled(MuiIconButton)({
-  color: '#fff',
-  height: '3rem',
-  width: '3rem',
-});
 
 interface Props {
   navOpen: boolean;
@@ -113,11 +97,24 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
           }
         `}
       </style>
-      <AppBar sx={{ opacity: 0.95 }} position="fixed">
-        <Toolbar sx={{ p: '2px 4px' }} disableGutters variant="dense">
+      <AppBar sx={{ opacity: 0.95, zIndex: 5 }} position="fixed">
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            p: '2px 4px',
+          }}
+          disableGutters
+          variant="dense"
+        >
           <Box sx={{ display: 'flex' }}>
             {!isDesktop && (
               <IconButton
+                sx={{
+                  color: '#fff',
+                  height: '3rem',
+                  width: '3rem',
+                }}
                 aria-label="Open nav menu"
                 onClick={() => setNavOpen(!navOpen)}
               >
@@ -193,7 +190,15 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
                 rel="noopener"
                 target="_blank"
               >
-                <IconButton aria-label="Github" size="small">
+                <IconButton
+                  sx={{
+                    color: '#fff',
+                    height: '3rem',
+                    width: '3rem',
+                  }}
+                  aria-label="Github"
+                  size="small"
+                >
                   <GitHubIcon />
                 </IconButton>
               </a>
@@ -204,7 +209,15 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
                 rel="noopener"
                 target="_blank"
               >
-                <IconButton aria-label="Discord" size="small">
+                <IconButton
+                  sx={{
+                    color: '#fff',
+                    height: '3rem',
+                    width: '3rem',
+                  }}
+                  aria-label="Discord"
+                  size="small"
+                >
                   <img
                     alt="Discord"
                     height={20}
@@ -219,6 +232,11 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
             </Tooltip>
             <Tooltip arrow title="Toggle Light/Dark Mode">
               <IconButton
+                sx={{
+                  color: '#fff',
+                  height: '3rem',
+                  width: '3rem',
+                }}
                 aria-label="Toggle Light/Dark Mode"
                 onClick={() => {
                   setIsLightTheme(!isLightTheme);

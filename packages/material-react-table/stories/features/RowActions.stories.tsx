@@ -5,16 +5,10 @@ import Edit from '@mui/icons-material/Edit';
 import ShareIcon from '@mui/icons-material/Share';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MuiMenuItem from '@mui/material/MenuItem';
-import { styled } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
 import { type MRT_ColumnDef, MaterialReactTable } from '../../src';
 import { faker } from '@faker-js/faker';
 import { type Meta } from '@storybook/react';
-
-const MenuItem = styled(MuiMenuItem)({
-  display: 'flex',
-  gap: '0.75rem',
-});
 
 const meta: Meta = {
   title: 'Features/Row Actions Examples',

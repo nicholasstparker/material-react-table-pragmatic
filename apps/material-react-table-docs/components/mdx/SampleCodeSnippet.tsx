@@ -3,7 +3,6 @@ import {
   useTheme,
   Tooltip,
   IconButton,
-  styled,
   alpha,
   Paper,
   type SxProps,
@@ -12,12 +11,6 @@ import {
 import { Highlight, themes } from 'prism-react-renderer';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-
-const CopyButton = styled(IconButton)({
-  position: 'absolute',
-  top: '0.25rem',
-  right: '0.25rem',
-});
 
 interface Props {
   children: string;
@@ -92,9 +85,16 @@ export const SampleCodeSnippet = ({ paperSxProps, ...props }: Props) => {
           >
             {props.enableCopyButton !== false && (
               <Tooltip arrow title={isCopied ? 'Copied!' : 'Copy Code'}>
-                <CopyButton onClick={handleCopy}>
+                <IconButton
+                  sx={{
+                    position: 'absolute',
+                    top: '0.25rem',
+                    right: '0.25rem',
+                  }}
+                  onClick={handleCopy}
+                >
                   {isCopied ? <LibraryAddCheckIcon /> : <ContentCopyIcon />}
-                </CopyButton>
+                </IconButton>
               </Tooltip>
             )}
             <pre

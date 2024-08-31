@@ -18,7 +18,6 @@ import {
   ToggleButtonGroup,
   Tooltip,
   rgbToHex,
-  styled,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
@@ -34,18 +33,6 @@ import { LinkHeading } from './LinkHeading';
 import { usePlausible } from 'next-plausible';
 import { useThemeContext } from '../../styles/ThemeContext';
 import { EthicalAd } from './EthicalAd';
-
-const CopyButton = styled(IconButton)({
-  position: 'absolute',
-  top: '0.5rem',
-  right: '0.5rem',
-});
-
-const ToggleFullCodeButton = styled(IconButton)({
-  position: 'absolute',
-  top: '0.5rem',
-  right: '3.5rem',
-});
 
 export interface Props {
   Component?: any;
@@ -419,9 +406,16 @@ export const SourceCodeSnippet = ({
                   }}
                 >
                   <Tooltip arrow title={isCopied ? 'Copied!' : 'Copy Code'}>
-                    <CopyButton onClick={handleCopy}>
+                    <IconButton
+                      sx={{
+                        position: 'absolute',
+                        top: '0.5rem',
+                        right: '0.5rem',
+                      }}
+                      onClick={handleCopy}
+                    >
                       {isCopied ? <LibraryAddCheckIcon /> : <ContentCopyIcon />}
-                    </CopyButton>
+                    </IconButton>
                   </Tooltip>
                   <Tooltip
                     arrow
@@ -431,11 +425,16 @@ export const SourceCodeSnippet = ({
                         : 'Show columns and data definitions'
                     }
                   >
-                    <ToggleFullCodeButton
+                    <IconButton
+                      sx={{
+                        position: 'absolute',
+                        top: '0.5rem',
+                        right: '3.5rem',
+                      }}
                       onClick={() => setIsFullCode(!isFullCode)}
                     >
                       {isFullCode ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
-                    </ToggleFullCodeButton>
+                    </IconButton>
                   </Tooltip>
                   <pre
                     className={className}
