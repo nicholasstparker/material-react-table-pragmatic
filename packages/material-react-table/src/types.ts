@@ -810,9 +810,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   columnFilterModeOptions?: Array<
     LiteralUnion<string & MRT_FilterOption>
   > | null;
-  columnVirtualizerInstanceRef?: MutableRefObject<
-    MRT_ColumnVirtualizer | null
-  >;
+  columnVirtualizerInstanceRef?: MutableRefObject<MRT_ColumnVirtualizer | null>;
   columnVirtualizerOptions?:
     | ((props: {
         table: MRT_TableInstance<TData>;
@@ -1271,9 +1269,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
     | 'sticky'
     | 'top'
     | 'top-and-bottom';
-  rowVirtualizerInstanceRef?: MutableRefObject<
-    MRT_RowVirtualizer | null
-  >;
+  rowVirtualizerInstanceRef?: MutableRefObject<MRT_RowVirtualizer | null>;
   rowVirtualizerOptions?:
     | ((props: {
         table: MRT_TableInstance<TData>;

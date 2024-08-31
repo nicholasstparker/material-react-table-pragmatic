@@ -37,8 +37,6 @@ import { EthicalAd } from './EthicalAd';
 export interface Props {
   Component?: any;
   apiCode?: string;
-  javaScriptCode?: string;
-  legacyCode?: string;
   tableId: string;
   typeScriptCode: string;
   showTopRow?: boolean;
@@ -47,8 +45,6 @@ export interface Props {
 export const SourceCodeSnippet = ({
   Component,
   apiCode,
-  javaScriptCode,
-  legacyCode,
   tableId,
   typeScriptCode,
   showTopRow = true,
@@ -65,7 +61,7 @@ export const SourceCodeSnippet = ({
   } = useThemeContext();
   const isMobile = useMediaQuery('(max-width: 720px)');
   const [codeTab, setCodeTab] = useState<
-    'ts' | 'js' | 'legacy' | 'api' | 'sandbox'
+    'ts' | 'api' | 'stackblitz' | 'sandbox'
   >('ts');
   const [isCopied, setIsCopied] = useState(false);
   const [isFullCode, setIsFullCode] = useState(false);
@@ -87,13 +83,7 @@ export const SourceCodeSnippet = ({
 
   const handleCopy = () => {
     navigator.clipboard.writeText(
-      (codeTab === 'ts'
-        ? typeScriptCode
-        : codeTab === 'js'
-          ? javaScriptCode
-          : codeTab === 'legacy'
-            ? legacyCode
-            : apiCode) ?? '',
+      (codeTab === 'ts' ? typeScriptCode : apiCode) ?? '',
     );
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3000);
@@ -150,7 +140,7 @@ export const SourceCodeSnippet = ({
                     <Button
                       color="success"
                       endIcon={<LaunchIcon />}
-                      href={`https://stackblitz.com/github/KevinVandy/material-react-table/tree/v2/apps/material-react-table-docs/examples/${tableId}/sandbox?file=src/TS.tsx`}
+                      href={`https://stackblitz.com/github/KevinVandy/material-react-table/tree/v3/apps/material-react-table-docs/examples/${tableId}/sandbox?file=src/TS.tsx`}
                       onClick={() => plausible('open-stackblitz')}
                       rel="noopener"
                       startIcon={<ElectricBoltIcon />}
@@ -163,7 +153,7 @@ export const SourceCodeSnippet = ({
                     <Button
                       color="warning"
                       endIcon={<LaunchIcon />}
-                      href={`https://codesandbox.io/s/github/KevinVandy/material-react-table/tree/v2/apps/material-react-table-docs/examples/${tableId}/sandbox?file=/src/TS.tsx`}
+                      href={`https://codesandbox.io/s/github/KevinVandy/material-react-table/tree/v3/apps/material-react-table-docs/examples/${tableId}/sandbox?file=/src/TS.tsx`}
                       onClick={() => plausible('open-code-sandbox')}
                       rel="noopener"
                       startIcon={<CodeIcon />}
@@ -176,14 +166,8 @@ export const SourceCodeSnippet = ({
                     <Button
                       color="info"
                       endIcon={<LaunchIcon />}
-                      href={`https://github.com/KevinVandy/material-react-table/tree/v2/apps/material-react-table-docs/examples/${tableId}/sandbox/src/${
-                        codeTab === 'ts'
-                          ? 'TS.tsx'
-                          : codeTab === 'js'
-                            ? 'JS.js'
-                            : codeTab === 'legacy'
-                              ? 'Props.tsx'
-                              : 'API.ts'
+                      href={`https://github.com/KevinVandy/material-react-table/tree/v3/apps/material-react-table-docs/examples/${tableId}/sandbox/src/${
+                        codeTab === 'ts' ? 'TS.tsx' : 'API.ts'
                       }`}
                       onClick={() => plausible('open-on-github')}
                       rel="noopener"
@@ -307,32 +291,6 @@ export const SourceCodeSnippet = ({
                 >
                   {isMobile ? 'TS' : 'TypeScript'}
                 </ToggleButton>
-                {javaScriptCode && (
-                  <ToggleButton
-                    onClick={() => {
-                      setCodeTab('js');
-                      plausible('toggle-to-javascript');
-                    }}
-                    selected={codeTab === 'js'}
-                    sx={{ textTransform: 'none' }}
-                    value="js"
-                  >
-                    {isMobile ? 'JS' : 'JavaScript'}
-                  </ToggleButton>
-                )}
-                {legacyCode && (
-                  <ToggleButton
-                    value="js"
-                    onClick={() => {
-                      setCodeTab('legacy');
-                      plausible('toggle-to-legacy');
-                    }}
-                    selected={codeTab === 'legacy'}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    {isMobile ? 'Legacy' : 'Props API'}
-                  </ToggleButton>
-                )}
                 {apiCode && (
                   <ToggleButton
                     onClick={() => {
@@ -346,6 +304,17 @@ export const SourceCodeSnippet = ({
                     {isMobile ? 'API' : 'Back-end API'}
                   </ToggleButton>
                 )}
+                <ToggleButton
+                  onClick={() => {
+                    setCodeTab('stackblitz');
+                    plausible('toggle-to-stackblitz');
+                  }}
+                  value="stackblitz"
+                  selected={codeTab === 'stackblitz'}
+                  sx={{ textTransform: 'none' }}
+                >
+                  Stackblitz
+                </ToggleButton>
                 <ToggleButton
                   onClick={() => {
                     setCodeTab('sandbox');
@@ -362,9 +331,24 @@ export const SourceCodeSnippet = ({
             {!isMobile && <EthicalAd id="demo" compact text />}
           </Box>
         </Box>
+        <Collapse mountOnEnter in={codeTab === 'stackblitz'}>
+          <iframe
+            src={`https://stackblitz.com/github/KevinVandy/material-react-table/tree/v3/apps/material-react-table-docs/examples/${tableId}/sandbox?file=src/TS.tsx`}
+            style={{
+              width: '100%',
+              height: '1000px',
+              border: '0',
+              borderRadius: '4px',
+              overflow: 'hidden',
+            }}
+            title="stackblitz"
+            allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+            sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+          />
+        </Collapse>
         <Collapse mountOnEnter in={codeTab === 'sandbox'}>
           <iframe
-            src={`https://codesandbox.io/s/github/KevinVandy/material-react-table/tree/v2/apps/material-react-table-docs/examples/${tableId}/sandbox?fontsize=14&hidenavigation=1&theme=${
+            src={`https://codesandbox.io/s/github/KevinVandy/material-react-table/tree/v3/apps/material-react-table-docs/examples/${tableId}/sandbox?fontsize=14&hidenavigation=1&theme=${
               isLightTheme ? 'light' : 'dark'
             }&file=src/TS.tsx`}
             style={{
@@ -379,23 +363,15 @@ export const SourceCodeSnippet = ({
             sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
           />
         </Collapse>
-        {codeTab !== 'sandbox' && (
+        {['ts', 'api'].includes(codeTab) && (
           <Paper elevation={3}>
             <Highlight
-              code={
-                (codeTab === 'ts'
-                  ? typeScriptCode
-                  : codeTab === 'js'
-                    ? javaScriptCode
-                    : codeTab === 'legacy'
-                      ? legacyCode
-                      : apiCode) ?? ''
-              }
-              language={codeTab !== 'js' ? 'tsx' : 'jsx'}
+              code={(codeTab === 'ts' ? typeScriptCode : apiCode) ?? ''}
+              language={'tsx'}
               theme={
                 theme.palette.mode === 'dark'
-                  ? themes.oneDark
-                  : themes.jettwaveLight
+                  ? themes.oceanicNext
+                  : themes.nightOwlLight
               }
             >
               {({ className, style, tokens, getLineProps, getTokenProps }) => (

@@ -58,7 +58,7 @@ export const StatBadges = () => {
         />
       </a>
       <a
-        href="https://github.com/KevinVandy/material-react-table/blob/v2/LICENSE"
+        href="https://github.com/KevinVandy/material-react-table/blob/v3/LICENSE"
         target="_blank"
         rel="noopener"
       >
