@@ -248,6 +248,7 @@ export const MRT_TableBodyRow = <TData extends MRT_RowData>({
               staticRowIndex,
               table,
             };
+            const key = `${cell.id}-${staticRowIndex}`;
             return cell ? (
               memoMode === 'cells' &&
               cell.column.columnDef.columnDefType === 'data' &&
@@ -255,9 +256,9 @@ export const MRT_TableBodyRow = <TData extends MRT_RowData>({
               !draggingRow &&
               editingCell?.id !== cell.id &&
               editingRow?.id !== row.id ? (
-                <Memo_MRT_TableBodyCell key={cell.id} {...props} />
+                <Memo_MRT_TableBodyCell key={key} {...props} />
               ) : (
-                <MRT_TableBodyCell key={cell.id} {...props} />
+                <MRT_TableBodyCell key={key} {...props} />
               )
             ) : null;
           },
