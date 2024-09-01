@@ -1,4 +1,4 @@
-import { type MouseEvent } from 'react';
+import { ReactNode, useMemo, type MouseEvent } from 'react';
 import Menu, { type MenuProps } from '@mui/material/Menu';
 import { MRT_ActionMenuItem } from './MRT_ActionMenuItem';
 import {
@@ -40,6 +40,30 @@ export const MRT_RowActionMenu = <TData extends MRT_RowData>({
   } = table;
   const { density } = getState();
 
+  const menuItems = useMemo(() => {
+    const items: ReactNode[] = [];
+    const editItem = parseFromValuesOrFunc(enableEditing, row) &&
+      ['modal', 'row'].includes(editDisplayMode!) && (
+        <MRT_ActionMenuItem
+          icon={<EditIcon />}
+          label={localization.edit}
+          onClick={handleEdit}
+          table={table}
+        />
+      );
+    if (editItem) items.push(editItem);
+    const rowActionMenuItems = renderRowActionMenuItems?.({
+      closeMenu: () => setAnchorEl(null),
+      row,
+      staticRowIndex,
+      table,
+    });
+    if (rowActionMenuItems?.length) items.push(...rowActionMenuItems);
+    return items;
+  }, [renderRowActionMenuItems, row, staticRowIndex, table]);
+
+  if (!menuItems.length) return null;
+
   return (
     <Menu
       MenuListProps={{
@@ -55,21 +79,7 @@ export const MRT_RowActionMenu = <TData extends MRT_RowData>({
       open={!!anchorEl}
       {...rest}
     >
-      {parseFromValuesOrFunc(enableEditing, row) &&
-        ['modal', 'row'].includes(editDisplayMode!) && (
-          <MRT_ActionMenuItem
-            icon={<EditIcon />}
-            label={localization.edit}
-            onClick={handleEdit}
-            table={table}
-          />
-        )}
-      {renderRowActionMenuItems?.({
-        closeMenu: () => setAnchorEl(null),
-        row,
-        staticRowIndex,
-        table,
-      })}
+      {menuItems}
     </Menu>
   );
 };

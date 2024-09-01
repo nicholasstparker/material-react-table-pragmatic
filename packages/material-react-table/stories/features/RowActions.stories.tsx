@@ -127,6 +127,53 @@ export const RowActionsEnabledConditionally = () => {
   );
 };
 
+export const RowActionsEnabledConditionallyPerRow = () => {
+  const [enabled, setEnabled] = useState(false);
+  return (
+    <MaterialReactTable
+      columns={columns}
+      data={data}
+      enableRowActions={enabled}
+      renderRowActionMenuItems={({ closeMenu, row }) =>
+        row.index % 2 === 0
+          ? []
+          : [
+              <MenuItem
+                key={1}
+                onClick={() => {
+                  console.info('View Profile', row);
+                  closeMenu();
+                }}
+              >
+                <AccountCircleIcon /> View Profile
+              </MenuItem>,
+              <MenuItem
+                key={2}
+                onClick={() => {
+                  console.info('Remove', row);
+                  closeMenu();
+                }}
+              >
+                <DeleteIcon /> Remove
+              </MenuItem>,
+              <MenuItem
+                key={3}
+                onClick={() => {
+                  console.info('Share', row);
+                  closeMenu();
+                }}
+              >
+                <ShareIcon /> Share
+              </MenuItem>,
+            ]
+      }
+      renderTopToolbarCustomActions={() => (
+        <Button onClick={() => setEnabled(!enabled)}>Toggle Row Actions</Button>
+      )}
+    />
+  );
+};
+
 export const RowActionsAndEditingEnabled = () => (
   <MaterialReactTable
     columns={columns}
