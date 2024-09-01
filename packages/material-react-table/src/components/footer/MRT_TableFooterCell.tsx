@@ -7,6 +7,7 @@ import {
 } from '../../types';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
+import { navigateToNextCell } from '../../utils/cell.utils';
 
 export interface MRT_TableFooterCellProps<TData extends MRT_RowData>
   extends TableCellProps {
@@ -24,7 +25,11 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
   const theme = useTheme();
   const {
     getState,
-    options: { enableColumnPinning, muiTableFooterCellProps },
+    options: {
+      enableColumnPinning,
+      muiTableFooterCellProps,
+      enableCellNavigation,
+    },
   } = table;
   const { density } = getState();
   const { column } = footer;
@@ -43,6 +48,13 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
     ...rest,
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+    if (enableCellNavigation) {
+      navigateToNextCell(e);
+    }
+    tableCellProps?.onKeyDown?.(e);
+  };
+
   return (
     <TableCell
       align={
@@ -57,6 +69,7 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
       data-pinned={!!isColumnPinned || undefined}
       variant="footer"
       {...tableCellProps}
+      onKeyDown={handleKeyDown}
       sx={(theme) => ({
         fontWeight: 'bold',
         p:

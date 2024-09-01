@@ -27,6 +27,7 @@ export const getMRTTheme = <TData extends MRT_RowData>(
       : muiTheme.palette.background.default);
   return {
     baseBackgroundColor,
+    cellNavigationOutlineColor: muiTheme.palette.primary.main,
     draggingBorderColor: muiTheme.palette.primary.main,
     matchHighlightColor:
       muiTheme.palette.mode === 'dark'
@@ -170,6 +171,10 @@ export const getCommonMRTCellStyles = <TData extends MRT_RowData>({
         : columnDefType !== 'group' && isColumnPinned
           ? 1
           : 0,
+    '&:focus-visible': {
+      outline: `2px solid ${table.options.mrtTheme.cellNavigationOutlineColor}`,
+      outlineOffset: '-2px',
+    },
     ...pinnedStyles,
     ...widthStyles,
     ...(parseFromValuesOrFunc(tableCellProps?.sx, theme) as any),

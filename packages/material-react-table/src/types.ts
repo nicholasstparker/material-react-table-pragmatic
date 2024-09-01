@@ -246,6 +246,7 @@ export interface MRT_Localization {
 
 export interface MRT_Theme {
   baseBackgroundColor: string;
+  cellNavigationOutlineColor: string;
   draggingBorderColor: string;
   matchHighlightColor: string;
   menuBackgroundColor: string;
@@ -867,6 +868,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   enableFullScreenToggle?: boolean;
   enableGlobalFilterModes?: boolean;
   enableGlobalFilterRankedResults?: boolean;
+  enableCellNavigation?: boolean;
   enablePagination?: boolean;
   enableRowActions?: boolean;
   enableRowDragging?: boolean;

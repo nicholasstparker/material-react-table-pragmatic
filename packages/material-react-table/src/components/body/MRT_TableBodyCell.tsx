@@ -16,7 +16,11 @@ import {
   type MRT_RowData,
   type MRT_TableInstance,
 } from '../../types';
-import { isCellEditable, openEditingCell } from '../../utils/cell.utils';
+import {
+  isCellEditable,
+  navigateToNextCell,
+  openEditingCell,
+} from '../../utils/cell.utils';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 import { MRT_CopyButton } from '../buttons/MRT_CopyButton';
@@ -54,6 +58,7 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
       enableColumnOrdering,
       enableColumnPinning,
       enableGrouping,
+      enableCellNavigation,
       layoutMode,
       mrtTheme: { draggingBorderColor },
       muiSkeletonProps,
@@ -227,12 +232,21 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+    if (enableCellNavigation) {
+      navigateToNextCell(e);
+    }
+    tableCellProps?.onKeyDown?.(e);
+  };
+
   return (
     <TableCell
       align={theme.direction === 'rtl' ? 'right' : 'left'}
       data-index={staticColumnIndex}
       data-pinned={!!isColumnPinned || undefined}
+      tabIndex={enableCellNavigation ? 0 : undefined}
       {...tableCellProps}
+      onKeyDown={handleKeyDown}
       onContextMenu={handleContextMenu}
       onDoubleClick={handleDoubleClick}
       onDragEnter={handleDragEnter}

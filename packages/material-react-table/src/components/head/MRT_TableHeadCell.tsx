@@ -17,6 +17,7 @@ import {
 } from '../../types';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
+import { navigateToNextCell } from '../../utils/cell.utils';
 
 export interface MRT_TableHeadCellProps<TData extends MRT_RowData>
   extends TableCellProps {
@@ -45,6 +46,7 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
       enableColumnOrdering,
       enableColumnPinning,
       enableGrouping,
+      enableCellNavigation,
       enableMultiSort,
       layoutMode,
       mrtTheme: { draggingBorderColor },
@@ -147,6 +149,13 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+    if (enableCellNavigation) {
+      navigateToNextCell(e);
+    }
+    tableCellProps?.onKeyDown?.(e);
+  };
+
   const HeaderElement =
     parseFromValuesOrFunc(columnDef.Header, {
       column,
@@ -185,7 +194,9 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
           }
         }
       }}
+      tabIndex={enableCellNavigation ? 0 : undefined}
       {...tableCellProps}
+      onKeyDown={handleKeyDown}
       sx={(theme: Theme) => ({
         '& :hover': {
           '.MuiButtonBase-root': {
