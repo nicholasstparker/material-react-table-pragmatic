@@ -17,11 +17,13 @@ import { getValueAndLabel, parseFromValuesOrFunc } from '../../utils/utils';
 export interface MRT_EditCellTextFieldProps<TData extends MRT_RowData>
   extends TextFieldProps<'standard'> {
   cell: MRT_Cell<TData>;
+  staticRowIndex?: number;
   table: MRT_TableInstance<TData>;
 }
 
 export const MRT_EditCellTextField = <TData extends MRT_RowData>({
   cell,
+  staticRowIndex,
   table,
   ...rest
 }: MRT_EditCellTextFieldProps<TData>) => {
@@ -107,6 +109,7 @@ export const MRT_EditCellTextField = <TData extends MRT_RowData>({
   return (
     <TextField
       disabled={parseFromValuesOrFunc(columnDef.enableEditing, row) === false}
+      key={`${row.id}-${row.index}-${staticRowIndex}`}
       fullWidth
       inputRef={(inputRef) => {
         if (inputRef) {

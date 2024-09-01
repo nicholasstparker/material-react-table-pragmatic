@@ -253,7 +253,7 @@ export const SourceCodeSnippet = ({
             >
               V1 Docs
             </MuiLink>{' '}
-            instead. (useMaterialReactTable only exists in V3)
+            instead. (useMaterialReactTable only exists in V2 and V3)
           </Alert>
         </Collapse>
         <Box

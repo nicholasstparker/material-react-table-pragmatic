@@ -311,7 +311,11 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
               table,
             })
           ) : isCreating || isEditing ? (
-            <MRT_EditCellTextField cell={cell} table={table} />
+            <MRT_EditCellTextField
+              cell={cell}
+              staticRowIndex={staticRowIndex}
+              table={table}
+            />
           ) : showClickToCopyButton && columnDef.enableClickToCopy !== false ? (
             <MRT_CopyButton cell={cell} table={table}>
               <MRT_TableBodyCellValue {...cellValueProps} />
