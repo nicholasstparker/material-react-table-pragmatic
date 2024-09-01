@@ -94,7 +94,11 @@ export const MRT_ToggleRowActionMenuButton = <TData extends MRT_RowData>({
             <EditIcon />
           </IconButton>
         </Tooltip>
-      ) : renderRowActionMenuItems ? (
+      ) : renderRowActionMenuItems?.({
+          row,
+          staticRowIndex,
+          table,
+        } as any)?.length ? (
         <>
           <Tooltip {...getCommonTooltipProps()} title={localization.rowActions}>
             <IconButton

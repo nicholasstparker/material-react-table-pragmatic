@@ -128,15 +128,14 @@ export const RowActionsEnabledConditionally = () => {
 };
 
 export const RowActionsEnabledConditionallyPerRow = () => {
-  const [enabled, setEnabled] = useState(false);
   return (
     <MaterialReactTable
       columns={columns}
       data={data}
-      enableRowActions={enabled}
+      enableRowActions
       renderRowActionMenuItems={({ closeMenu, row }) =>
         row.index % 2 === 0
-          ? []
+          ? undefined
           : [
               <MenuItem
                 key={1}
@@ -167,9 +166,6 @@ export const RowActionsEnabledConditionallyPerRow = () => {
               </MenuItem>,
             ]
       }
-      renderTopToolbarCustomActions={() => (
-        <Button onClick={() => setEnabled(!enabled)}>Toggle Row Actions</Button>
-      )}
     />
   );
 };

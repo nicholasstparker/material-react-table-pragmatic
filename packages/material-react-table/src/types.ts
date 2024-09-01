@@ -1239,7 +1239,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
     row: MRT_Row<TData>;
     staticRowIndex?: number;
     table: MRT_TableInstance<TData>;
-  }) => ReactNode[];
+  }) => ReactNode[] | undefined;
   renderRowActions?: (props: {
     cell: MRT_Cell<TData>;
     row: MRT_Row<TData>;
