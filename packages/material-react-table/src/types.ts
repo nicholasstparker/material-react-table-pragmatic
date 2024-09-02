@@ -1236,6 +1236,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   renderCaption?:
     | ((props: { table: MRT_TableInstance<TData> }) => ReactNode)
     | ReactNode;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   renderCellActionMenuItems?: (props: {
     cell: MRT_Cell<TData>;
     closeMenu: () => void;
@@ -1246,12 +1249,18 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
     staticRowIndex?: number;
     table: MRT_TableInstance<TData>;
   }) => ReactNode[];
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   renderColumnActionsMenuItems?: (props: {
     closeMenu: () => void;
     column: MRT_Column<TData>;
     internalColumnMenuItems: ReactNode[];
     table: MRT_TableInstance<TData>;
   }) => ReactNode[];
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   renderColumnFilterModeMenuItems?: (props: {
     column: MRT_Column<TData>;
     internalFilterOptions: MRT_InternalFilterOption[];

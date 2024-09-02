@@ -35,6 +35,7 @@ export const MRT_ActionMenuItem = <TData extends MRT_RowData>({
         my: 0,
         py: '6px',
       }}
+      tabIndex={0}
       {...rest}
     >
       <Box

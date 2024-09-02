@@ -49,20 +49,35 @@ export const openEditingCell = <TData extends MRT_RowData>({
   }
 };
 
-export const cellNavigation = (
-  e: React.KeyboardEvent<HTMLTableCellElement>,
-) => {
+export const cellNavigation = ({
+  cellElements,
+  cellValue,
+  containerElement,
+  event,
+  parentElement,
+}: {
+  cellElements?: Array<HTMLTableCellElement | HTMLDivElement>;
+  cellValue?: string;
+  containerElement?: HTMLDivElement | HTMLTableElement;
+  event: React.KeyboardEvent<HTMLTableCellElement | HTMLDivElement>;
+  parentElement?: HTMLTableRowElement | HTMLDivElement;
+}) => {
+  if (cellValue && (event.ctrlKey || event.metaKey) && event.key === 'c') {
+    navigator.clipboard.writeText(cellValue);
+  }
   if (
     ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(
-      e.key,
+      event.key,
     )
   ) {
-    e.preventDefault();
-    const currentCell = e.currentTarget;
-    const currentRow = currentCell.closest('tr');
+    event.preventDefault();
+    const currentCell = event.currentTarget;
+    const currentRow = parentElement || currentCell.closest('tr');
 
-    const tableElement = currentCell.closest('table');
-    const allCells = Array.from(tableElement?.querySelectorAll('th, td') || []);
+    const tableElement = containerElement || currentCell.closest('table');
+    const allCells =
+      cellElements ||
+      Array.from(tableElement?.querySelectorAll('th, td') || []);
     const currentCellIndex = allCells.indexOf(currentCell);
 
     const currentIndex = parseInt(
@@ -76,8 +91,8 @@ export const cellNavigation = (
         rowIndex === 'c'
           ? currentRow
           : rowIndex === 'f'
-            ? currentCell.closest('table')?.querySelector('tr')
-            : currentCell.closest('table')?.lastElementChild?.lastElementChild;
+            ? tableElement?.querySelector('tr')
+            : tableElement?.lastElementChild?.lastElementChild;
       const rowCells = Array.from(row?.children || []);
       const targetCell =
         edge === 'f' ? rowCells[0] : rowCells[rowCells.length - 1];
@@ -97,7 +112,7 @@ export const cellNavigation = (
       ) as HTMLElement | undefined;
     };
 
-    switch (e.key) {
+    switch (event.key) {
       case 'ArrowRight':
         nextCell = findAdjacentCell(currentIndex + 1, 'f');
         break;
@@ -111,10 +126,10 @@ export const cellNavigation = (
         nextCell = findAdjacentCell(currentIndex, 'f');
         break;
       case 'Home':
-        nextCell = findEdgeCell(e.ctrlKey ? 'f' : 'c', 'f');
+        nextCell = findEdgeCell(event.ctrlKey ? 'f' : 'c', 'f');
         break;
       case 'End':
-        nextCell = findEdgeCell(e.ctrlKey ? 'l' : 'c', 'l');
+        nextCell = findEdgeCell(event.ctrlKey ? 'l' : 'c', 'l');
         break;
     }
 

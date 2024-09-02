@@ -232,11 +232,11 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
     if (enableCellNavigation) {
-      cellNavigation(e);
+      cellNavigation({ event, cellValue: cell.getValue<string>() });
     }
-    tableCellProps?.onKeyDown?.(e);
+    tableCellProps?.onKeyDown?.(event);
   };
 
   return (

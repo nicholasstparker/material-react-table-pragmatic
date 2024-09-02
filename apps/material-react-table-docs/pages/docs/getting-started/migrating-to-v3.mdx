@@ -17,8 +17,9 @@ This will be the easiest MRT upgrade ever! Material React Table V3 is mostly jus
 
 ### New Feature Highlights
 
-1. Compatible with Material UI V6
-2. **Almost no other changes**. MRT is not taking advantage of the new optional features in Material UI V6 yet. MRT V3 will serve as an easy upgrade target for those who are just looking to upgrade their Material UI package versions.
+1. Compatible with Material UI V6 with generally better performance across the board
+2. Keyboard navigation improvements that are now included by default
+3. **Almost no other changes**. MRT is not taking advantage of the new optional features in Material UI V6 yet. MRT V3 will serve as an easy upgrade target for those who are just looking to upgrade their Material UI package versions.
 
 ### Upgrade Dependencies
 
@@ -46,18 +47,59 @@ npx npm-check-updates -u material-react-table
 
 And then perform the actual install (downloading the new version):
 
-<InstallCommand packagesString="material-react-table" />
+<InstallCommand packagesString="" />
 
 You should now be on Material React Table V3! Look for any code or type errors in your project and fix them as needed.
 
 ### Breaking Changes
 
-- `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages
+- `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages (you might be able to get away with lower MUI versions for a while, but eventually MUI V6 APIs will be used internally by MRT and your project will break)
 - `@mui/x-date-pickers` v7.15.0 is now a minimum required dependency
-
 - Removed deprecated `MRT_Virtualizer` type in favor of separate `MRT_RowVirtualizer` and `MRT_ColumnVirtualizer` types
-
 - Removed deprecated `text` in favor of the more consistent `label` type in dropdown/autocomplete/select option types.
+- Deprecated several `mui*Props` table options that were column-specific. These table options should either be specified in column defs or in the `defaultColumn` table option.
+  - `muiColumnActionsButtonProps`
+  - `muiColumnDragHandleProps`
+  - `muiCopyButtonProps`
+  - `muiEditTextFieldProps`
+  - `muiFilterAutocompleteProps`
+  - `muiFilterCheckboxProps`
+  - `muiFilterDatePickerProps`
+  - `muiFilterDateTimePickerProps`
+  - `muiFilterSliderProps`
+  - `muiFilterTextFieldProps`
+  - `muiFilterTimePickerProps`
+  - `muiSkeletonProps`
+  - `muiTableBodyCellProps`
+  - `muiTableHeadCellProps`
+  - `renderCellActionMenuItems`
+  - `renderColumnActionsMenuItems`
+  - `renderColumnFilterModeMenuItems`
+
+```diff
+const table = useTable({
+  columns,
+  data,
+  // Recommended to specify these table options in the defaultColumn instead
++ defaultColumn: { // applies to all columns
++    muiTableBodyCellProps: {
++      align: 'center',
++    },
++    muiFilterAutocompleteProps: {
++      sx: { my: 2 },
++    },
++  },
+// these table options will be removed in MRT V4
+-  muiTableBodyCellProps: {
+-    align: 'center',
+-  },
+-  muiFilterAutocompleteProps: {
+-    sx: { my: 2 },
+-  },
+)};
+```
+
+You can be lazy with these changes. These table options are just marked as deprecated, but they will still work until MRT V4.
 
 > Can I uninstall Emotion Yet? No, Emotion is still required for Material React Table V3, but it won't be for long. MRT V4 will remove the Emotion dependency in favor of [Pigment CSS](https://mui.com/blog/introducing-pigment-css/).
 

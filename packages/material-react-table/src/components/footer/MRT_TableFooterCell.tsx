@@ -48,11 +48,11 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
     ...rest,
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
     if (enableCellNavigation) {
-      cellNavigation(e);
+      cellNavigation({ event, cellValue: footer.column.footer });
     }
-    tableCellProps?.onKeyDown?.(e);
+    tableCellProps?.onKeyDown?.(event);
   };
 
   return (
