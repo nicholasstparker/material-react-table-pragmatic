@@ -353,6 +353,10 @@ export const routes: Array<RouteItem> = [
             href: '/docs/guides/state-management',
             label: 'State Management',
           },
+          {
+            href: '/docs/guides/accessibility',
+            label: 'Accessibility / Keyboard Navigation',
+          },
         ],
       },
       {

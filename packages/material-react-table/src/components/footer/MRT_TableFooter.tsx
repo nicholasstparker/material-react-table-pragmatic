@@ -19,7 +19,6 @@ export const MRT_TableFooter = <TData extends MRT_RowData>({
   ...rest
 }: MRT_TableFooterProps<TData>) => {
   const {
-    getFooterGroups,
     getState,
     options: { enableStickyFooter, layoutMode, muiTableFooterProps },
     refs: { tableFooterRef },
@@ -35,6 +34,22 @@ export const MRT_TableFooter = <TData extends MRT_RowData>({
 
   const stickFooter =
     (isFullScreen || enableStickyFooter) && enableStickyFooter !== false;
+
+  const footerGroups = table.getFooterGroups();
+
+  //if no footer cells at all, skip footer
+  if (
+    !footerGroups.some((footerGroup) =>
+      footerGroup.headers?.some(
+        (header) =>
+          (typeof header.column.columnDef.footer === 'string' &&
+            !!header.column.columnDef.footer) ||
+          header.column.columnDef.Footer,
+      ),
+    )
+  ) {
+    return null;
+  }
 
   return (
     <TableFooter
@@ -60,7 +75,7 @@ export const MRT_TableFooter = <TData extends MRT_RowData>({
         ...(parseFromValuesOrFunc(tableFooterProps?.sx, theme) as any),
       })}
     >
-      {getFooterGroups().map((footerGroup) => (
+      {footerGroups.map((footerGroup) => (
         <MRT_TableFooterRow
           columnVirtualizer={columnVirtualizer}
           footerGroup={footerGroup as any}

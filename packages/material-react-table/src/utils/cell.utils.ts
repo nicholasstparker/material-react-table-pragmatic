@@ -49,44 +49,72 @@ export const openEditingCell = <TData extends MRT_RowData>({
   }
 };
 
-export const navigateToNextCell = (
+export const cellNavigation = (
   e: React.KeyboardEvent<HTMLTableCellElement>,
 ) => {
-  if (['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+  if (
+    ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(
+      e.key,
+    )
+  ) {
     e.preventDefault();
     const currentCell = e.currentTarget;
+    const currentRow = currentCell.closest('tr');
+
     const tableElement = currentCell.closest('table');
-    if (!tableElement) return;
+    const allCells = Array.from(tableElement?.querySelectorAll('th, td') || []);
+    const currentCellIndex = allCells.indexOf(currentCell);
 
     const currentIndex = parseInt(
       currentCell.getAttribute('data-index') || '0',
     );
     let nextCell: HTMLElement | undefined = undefined;
 
-    const findNextCell = (index: number, searchDirection: 'f' | 'b') => {
-      const allCells = Array.from(tableElement.querySelectorAll('th, td'));
-      const currentCellIndex = allCells.indexOf(currentCell);
+    //home/end first or last cell in row
+    const findEdgeCell = (rowIndex: 'c' | 'f' | 'l', edge: 'f' | 'l') => {
+      const row =
+        rowIndex === 'c'
+          ? currentRow
+          : rowIndex === 'f'
+            ? currentCell.closest('table')?.querySelector('tr')
+            : currentCell.closest('table')?.lastElementChild?.lastElementChild;
+      const rowCells = Array.from(row?.children || []);
+      const targetCell =
+        edge === 'f' ? rowCells[0] : rowCells[rowCells.length - 1];
+      return targetCell as HTMLElement;
+    };
+
+    const findAdjacentCell = (
+      columnIndex: number,
+      searchDirection: 'f' | 'b',
+    ) => {
       const searchArray =
         searchDirection === 'f'
           ? allCells.slice(currentCellIndex + 1)
           : allCells.slice(0, currentCellIndex).reverse();
       return searchArray.find((cell) =>
-        cell.matches(`[data-index="${index}"]`),
+        cell.matches(`[data-index="${columnIndex}"]`),
       ) as HTMLElement | undefined;
     };
 
     switch (e.key) {
       case 'ArrowRight':
-        nextCell = findNextCell(currentIndex + 1, 'f');
+        nextCell = findAdjacentCell(currentIndex + 1, 'f');
         break;
       case 'ArrowLeft':
-        nextCell = findNextCell(currentIndex - 1, 'b');
+        nextCell = findAdjacentCell(currentIndex - 1, 'b');
         break;
       case 'ArrowUp':
-        nextCell = findNextCell(currentIndex, 'b');
+        nextCell = findAdjacentCell(currentIndex, 'b');
         break;
       case 'ArrowDown':
-        nextCell = findNextCell(currentIndex, 'f');
+        nextCell = findAdjacentCell(currentIndex, 'f');
+        break;
+      case 'Home':
+        nextCell = findEdgeCell(e.ctrlKey ? 'f' : 'c', 'f');
+        break;
+      case 'End':
+        nextCell = findEdgeCell(e.ctrlKey ? 'l' : 'c', 'l');
         break;
     }
 

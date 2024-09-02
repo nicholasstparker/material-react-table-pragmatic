@@ -493,6 +493,16 @@ export const tableOptions: TableOption[] = [
     type: 'boolean',
   },
   {
+    tableOption: 'enableCellNavigation',
+    defaultValue: 'true',
+    description: '',
+    link: '',
+    linkText: '',
+    required: false,
+    source: '',
+    type: 'boolean',
+  },
+  {
     tableOption: 'enablePagination',
     defaultValue: 'true',
     description: '',

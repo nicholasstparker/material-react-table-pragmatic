@@ -18,7 +18,7 @@ import {
 } from '../../types';
 import {
   isCellEditable,
-  navigateToNextCell,
+  cellNavigation,
   openEditingCell,
 } from '../../utils/cell.utils';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
@@ -234,7 +234,7 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
     if (enableCellNavigation) {
-      navigateToNextCell(e);
+      cellNavigation(e);
     }
     tableCellProps?.onKeyDown?.(e);
   };

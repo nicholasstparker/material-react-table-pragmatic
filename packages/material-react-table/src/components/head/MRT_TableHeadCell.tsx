@@ -17,7 +17,7 @@ import {
 } from '../../types';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { navigateToNextCell } from '../../utils/cell.utils';
+import { cellNavigation } from '../../utils/cell.utils';
 
 export interface MRT_TableHeadCellProps<TData extends MRT_RowData>
   extends TableCellProps {
@@ -151,7 +151,7 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTableCellElement>) => {
     if (enableCellNavigation) {
-      navigateToNextCell(e);
+      cellNavigation(e);
     }
     tableCellProps?.onKeyDown?.(e);
   };

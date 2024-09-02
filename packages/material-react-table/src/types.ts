@@ -271,6 +271,7 @@ export type MRT_TableInstance<TData extends MRT_RowData> = Omit<
   | 'getColumn'
   | 'getExpandedRowModel'
   | 'getFlatHeaders'
+  | 'getFooterGroups'
   | 'getHeaderGroups'
   | 'getLeafHeaders'
   | 'getLeftLeafColumns'
@@ -293,6 +294,7 @@ export type MRT_TableInstance<TData extends MRT_RowData> = Omit<
   getColumn: (columnId: string) => MRT_Column<TData>;
   getExpandedRowModel: () => MRT_RowModel<TData>;
   getFlatHeaders: () => MRT_Header<TData>[];
+  getFooterGroups: () => MRT_HeaderGroup<TData>[];
   getHeaderGroups: () => MRT_HeaderGroup<TData>[];
   getLeafHeaders: () => MRT_Header<TData>[];
   getLeftLeafColumns: () => MRT_Column<TData>[];
@@ -920,18 +922,27 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => CircularProgressProps & { Component?: ReactNode })
     | (CircularProgressProps & { Component?: ReactNode });
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiColumnActionsButtonProps?:
     | ((props: {
         column: MRT_Column<TData>;
         table: MRT_TableInstance<TData>;
       }) => IconButtonProps)
     | IconButtonProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiColumnDragHandleProps?:
     | ((props: {
         column: MRT_Column<TData>;
         table: MRT_TableInstance<TData>;
       }) => IconButtonProps)
     | IconButtonProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiCopyButtonProps?:
     | ((props: {
         cell: MRT_Cell<TData>;
@@ -958,6 +969,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => DialogProps)
     | DialogProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiEditTextFieldProps?:
     | ((props: {
         cell: MRT_Cell<TData>;
@@ -976,18 +990,27 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => IconButtonProps)
     | IconButtonProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterAutocompleteProps?:
     | ((props: {
         column: MRT_Column<TData>;
         table: MRT_TableInstance<TData>;
       }) => AutocompleteProps<any, any, any, any>)
     | AutocompleteProps<any, any, any, any>;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterCheckboxProps?:
     | ((props: {
         column: MRT_Column<TData>;
         table: MRT_TableInstance<TData>;
       }) => CheckboxProps)
     | CheckboxProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterDatePickerProps?:
     | ((props: {
         column: MRT_Column<TData>;
@@ -995,6 +1018,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => DatePickerProps<never>)
     | DatePickerProps<never>;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterDateTimePickerProps?:
     | ((props: {
         column: MRT_Column<TData>;
@@ -1002,12 +1028,18 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => DateTimePickerProps<never>)
     | DateTimePickerProps<never>;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterSliderProps?:
     | ((props: {
         column: MRT_Column<TData>;
         table: MRT_TableInstance<TData>;
       }) => SliderProps)
     | SliderProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterTextFieldProps?:
     | ((props: {
         column: MRT_Column<TData>;
@@ -1015,6 +1047,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => TextFieldProps)
     | TextFieldProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiFilterTimePickerProps?:
     | ((props: {
         column: MRT_Column<TData>;
@@ -1064,6 +1099,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => CheckboxProps | RadioProps)
     | (CheckboxProps | RadioProps);
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiSkeletonProps?:
     | ((props: {
         cell: MRT_Cell<TData>;
@@ -1072,6 +1110,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => SkeletonProps)
     | SkeletonProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiTableBodyCellProps?:
     | ((props: {
         cell: MRT_Cell<TData>;
@@ -1109,6 +1150,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => TableRowProps)
     | TableRowProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiTableHeadCellProps?:
     | ((props: {
         column: MRT_Column<TData>;
