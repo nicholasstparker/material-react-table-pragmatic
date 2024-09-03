@@ -1099,9 +1099,6 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
         table: MRT_TableInstance<TData>;
       }) => CheckboxProps | RadioProps)
     | (CheckboxProps | RadioProps);
-  /**
-   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
-   */
   muiSkeletonProps?:
     | ((props: {
         cell: MRT_Cell<TData>;

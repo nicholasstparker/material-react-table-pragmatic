@@ -151,7 +151,12 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
     if (enableCellNavigation) {
-      cellNavigation({ event, cellValue: header.column.header });
+      cellNavigation({
+        event,
+        cellValue: header.column.columnDef.header,
+        table,
+        header,
+      });
     }
     tableCellProps?.onKeyDown?.(event);
   };

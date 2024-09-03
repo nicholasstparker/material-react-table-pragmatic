@@ -338,6 +338,10 @@ export const MRT_FilterTextField = <TData extends MRT_RowData>({
         : filterPlaceholder,
     variant: 'standard',
     ...textFieldProps,
+    onKeyDown: (e) => {
+      e.stopPropagation();
+      textFieldProps.onKeyDown?.(e);
+    },
     sx: (theme) => ({
       minWidth: isDateFilter
         ? '160px'

@@ -54,6 +54,15 @@ export const SelectionEnabled = () => (
   />
 );
 
+export const DisableSelectAll = () => (
+  <MaterialReactTable
+    columns={columns}
+    data={data}
+    enableSelectAll={false}
+    enableRowSelection
+  />
+);
+
 export const SelectionEnabledGrid = () => (
   <MaterialReactTable
     columns={columns}

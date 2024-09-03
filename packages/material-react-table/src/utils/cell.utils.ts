@@ -1,8 +1,13 @@
 import {
+  MRT_Header,
   type MRT_Cell,
   type MRT_RowData,
   type MRT_TableInstance,
 } from '../types';
+import {
+  getMRT_RowSelectionHandler,
+  getMRT_SelectAllHandler,
+} from './row.utils';
 import { parseFromValuesOrFunc } from './utils';
 
 export const isCellEditable = <TData extends MRT_RowData>({
@@ -49,23 +54,65 @@ export const openEditingCell = <TData extends MRT_RowData>({
   }
 };
 
-export const cellNavigation = ({
+export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
+  cell,
   cellElements,
   cellValue,
   containerElement,
   event,
+  header,
   parentElement,
+  table,
 }: {
-  cellElements?: Array<HTMLTableCellElement | HTMLDivElement>;
+  cell?: MRT_Cell<TData>;
+  header?: MRT_Header<TData>;
+  cellElements?: Array<HTMLTableCellElement>;
   cellValue?: string;
-  containerElement?: HTMLDivElement | HTMLTableElement;
-  event: React.KeyboardEvent<HTMLTableCellElement | HTMLDivElement>;
-  parentElement?: HTMLTableRowElement | HTMLDivElement;
+  containerElement?: HTMLTableElement;
+  event: React.KeyboardEvent<HTMLTableCellElement>;
+  parentElement?: HTMLTableRowElement;
+  table: MRT_TableInstance<TData>;
 }) => {
   if (cellValue && (event.ctrlKey || event.metaKey) && event.key === 'c') {
     navigator.clipboard.writeText(cellValue);
-  }
-  if (
+  } else if (['Enter', ' '].includes(event.key)) {
+    if (cell?.column?.id === 'mrt-row-select') {
+      getMRT_RowSelectionHandler({
+        row: cell.row,
+        table,
+        //@ts-ignore
+        staticRowIndex: +event.target.getAttribute('data-index'),
+      })(event as any);
+    } else if (
+      header?.column?.id === 'mrt-row-select' &&
+      table.options.enableSelectAll
+    ) {
+      getMRT_SelectAllHandler({
+        table,
+      })(event as any);
+    } else if (
+      cell?.column?.id === 'mrt-row-expand' &&
+      (cell.row.getCanExpand() ||
+        table.options.renderDetailPanel?.({ row: cell.row, table }))
+    ) {
+      cell.row.toggleExpanded();
+    } else if (
+      header?.column?.id === 'mrt-row-expand' &&
+      table.options.enableExpandAll
+    ) {
+      table.toggleAllRowsExpanded();
+    } else if (header?.column?.getCanSort()) {
+      header.column.toggleSorting();
+    } else if (cell?.column.id === 'mrt-row-pin') {
+      cell.row.getIsPinned()
+        ? cell.row.pin(false)
+        : cell.row.pin(
+            table.options.rowPinningDisplayMode?.includes('bottom')
+              ? 'bottom'
+              : 'top',
+          );
+    }
+  } else if (
     ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(
       event.key,
     )
