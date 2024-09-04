@@ -49,7 +49,9 @@ export const MRT_RowPinButton = <TData extends MRT_RowData>({
     >
       <IconButton
         aria-label={localization.pin}
+        onBlur={() => setTooltipOpened(false)}
         onClick={handleTogglePin}
+        onFocus={() => setTooltipOpened(true)}
         onMouseEnter={() => setTooltipOpened(true)}
         onMouseLeave={() => setTooltipOpened(false)}
         size="small"

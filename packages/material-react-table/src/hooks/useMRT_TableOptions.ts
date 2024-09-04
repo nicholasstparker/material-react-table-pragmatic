@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useId, useMemo } from 'react';
 import {
   getCoreRowModel,
   getExpandedRowModel,
@@ -92,6 +92,7 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
   enableTopToolbar = true,
   filterFns,
   icons,
+  id = useId(),
   layoutMode,
   localization,
   manualFiltering,
@@ -244,6 +245,7 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
       enableSorting && !manualSorting ? getSortedRowModel() : undefined,
     getSubRows: (row) => row?.subRows,
     icons,
+    id,
     layoutMode,
     localization,
     manualFiltering,

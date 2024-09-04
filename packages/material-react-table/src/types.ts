@@ -894,6 +894,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   globalFilterFn?: MRT_FilterOption;
   globalFilterModeOptions?: MRT_FilterOption[] | null;
   icons?: Partial<MRT_Icons>;
+  id?: string;
   initialState?: Partial<MRT_TableState<TData>>;
   /**
    * Changes which kind of CSS layout is used to render the table. `semantic` uses default semantic HTML elements, while `grid` adds CSS grid and flexbox styles
@@ -1132,6 +1133,9 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   muiTableContainerProps?:
     | ((props: { table: MRT_TableInstance<TData> }) => TableContainerProps)
     | TableContainerProps;
+  /**
+   * @deprecated Specify this in the `defaultColumn` table option instead if you want to apply to all columns.
+   */
   muiTableFooterCellProps?:
     | ((props: {
         column: MRT_Column<TData>;

@@ -62,14 +62,16 @@ export const RightCells = () => (
   <MaterialReactTable
     columns={columns}
     data={data}
-    muiTableBodyCellProps={{
-      align: 'right',
-    }}
-    muiTableFooterCellProps={{
-      align: 'right',
-    }}
-    muiTableHeadCellProps={{
-      align: 'right',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'right',
+      },
+      muiTableFooterCellProps: {
+        align: 'right',
+      },
+      muiTableHeadCellProps: {
+        align: 'right',
+      },
     }}
   />
 );
@@ -79,14 +81,16 @@ export const RightCellsGrid = () => (
     columns={columns}
     data={data}
     layoutMode="grid"
-    muiTableBodyCellProps={{
-      align: 'right',
-    }}
-    muiTableFooterCellProps={{
-      align: 'right',
-    }}
-    muiTableHeadCellProps={{
-      align: 'right',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'right',
+      },
+      muiTableFooterCellProps: {
+        align: 'right',
+      },
+      muiTableHeadCellProps: {
+        align: 'right',
+      },
     }}
   />
 );
@@ -95,14 +99,16 @@ export const CenterCells = () => (
   <MaterialReactTable
     columns={columns}
     data={data}
-    muiTableBodyCellProps={{
-      align: 'center',
-    }}
-    muiTableFooterCellProps={{
-      align: 'center',
-    }}
-    muiTableHeadCellProps={{
-      align: 'center',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'center',
+      },
+      muiTableFooterCellProps: {
+        align: 'center',
+      },
+      muiTableHeadCellProps: {
+        align: 'center',
+      },
     }}
   />
 );
@@ -112,14 +118,16 @@ export const CenterCellsGrid = () => (
     columns={columns}
     data={data}
     layoutMode="grid"
-    muiTableBodyCellProps={{
-      align: 'center',
-    }}
-    muiTableFooterCellProps={{
-      align: 'center',
-    }}
-    muiTableHeadCellProps={{
-      align: 'center',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'center',
+      },
+      muiTableFooterCellProps: {
+        align: 'center',
+      },
+      muiTableHeadCellProps: {
+        align: 'center',
+      },
     }}
   />
 );
@@ -129,14 +137,16 @@ export const CenterCellsWithGrabHandle = () => (
     columns={columns}
     data={data}
     enableColumnDragging
-    muiTableBodyCellProps={{
-      align: 'center',
-    }}
-    muiTableFooterCellProps={{
-      align: 'center',
-    }}
-    muiTableHeadCellProps={{
-      align: 'center',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'center',
+      },
+      muiTableFooterCellProps: {
+        align: 'center',
+      },
+      muiTableHeadCellProps: {
+        align: 'center',
+      },
     }}
   />
 );
@@ -147,14 +157,16 @@ export const CenterCellsWithGrabHandleNoSorting = () => (
     data={data}
     enableColumnDragging
     enableSorting={false}
-    muiTableBodyCellProps={{
-      align: 'center',
-    }}
-    muiTableFooterCellProps={{
-      align: 'center',
-    }}
-    muiTableHeadCellProps={{
-      align: 'center',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'center',
+      },
+      muiTableFooterCellProps: {
+        align: 'center',
+      },
+      muiTableHeadCellProps: {
+        align: 'center',
+      },
     }}
   />
 );
@@ -164,14 +176,16 @@ export const CenterCellsNoColumnActions = () => (
     columns={columns}
     data={data}
     enableColumnActions={false}
-    muiTableBodyCellProps={{
-      align: 'center',
-    }}
-    muiTableFooterCellProps={{
-      align: 'center',
-    }}
-    muiTableHeadCellProps={{
-      align: 'center',
+    defaultColumn={{
+      muiTableBodyCellProps: {
+        align: 'center',
+      },
+      muiTableFooterCellProps: {
+        align: 'center',
+      },
+      muiTableHeadCellProps: {
+        align: 'center',
+      },
     }}
   />
 );

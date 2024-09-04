@@ -45,6 +45,7 @@ This option enables the following keyboard shortcuts:
 - `Enter` - Performs certain actions in the currently focused cell such as sorting, row selection, row expansion, row pinning, etc.
 - `Space` - Also performs certain actions in the currently focused cell such as sorting, row selection, row expansion, row pinning, etc.
 - `Ctrl/Cmd + Enter` - Opens column actions menu on a header
+- `Escape` - Exits full screen mode
 
 A `tabIndex={0}` is also automatically added to all cells, headers, and footers when `enableKeyboardShortcuts` is enabled to allow for keyboard focus.
 
@@ -123,3 +124,10 @@ const table = useMaterialReactTable({
   },
 });
 ```
+
+### Full Screen Mode
+
+Now in V3, a focus trap is applied to the table when in full screen mode. This is to prevent the user from navigating outside of the table when using the arrow keys.
+
+The user can exit full screen mode by pressing `Escape`.
+

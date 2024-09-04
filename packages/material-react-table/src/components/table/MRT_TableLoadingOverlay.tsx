@@ -17,6 +17,7 @@ export const MRT_TableLoadingOverlay = <TData extends MRT_RowData>({
 }: MRT_TableLoadingOverlayProps<TData>) => {
   const {
     options: {
+      id,
       localization,
       mrtTheme: { baseBackgroundColor },
       muiCircularProgressProps,
@@ -48,7 +49,7 @@ export const MRT_TableLoadingOverlay = <TData extends MRT_RowData>({
       {circularProgressProps?.Component ?? (
         <CircularProgress
           aria-label={localization.noRecordsToDisplay}
-          id="mrt-progress"
+          id={`mrt-progress-${id}`}
           {...circularProgressProps}
         />
       )}

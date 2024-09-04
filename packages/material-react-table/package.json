@@ -1,5 +1,5 @@
 {
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0-rc.0",
   "license": "MIT",
   "name": "material-react-table",
   "description": "A fully featured Material UI V6 implementation of TanStack React Table V8, written from the ground up in TypeScript.",
@@ -110,8 +110,8 @@
     "@mui/icons-material": ">=6",
     "@mui/material": ">=6",
     "@mui/x-date-pickers": ">=7.15",
-    "react": ">=17.0",
-    "react-dom": ">=17.0"
+    "react": ">=18.0",
+    "react-dom": ">=18.0"
   },
   "dependencies": {
     "@tanstack/match-sorter-utils": "8.19.4",

@@ -36,7 +36,9 @@ export const MRT_ToggleFullScreenButton = <TData extends MRT_RowData>({
     >
       <IconButton
         aria-label={localization.toggleFullScreen}
+        onBlur={() => setTooltipOpened(false)}
         onClick={handleToggleFullScreen}
+        onFocus={() => setTooltipOpened(true)}
         onMouseEnter={() => setTooltipOpened(true)}
         onMouseLeave={() => setTooltipOpened(false)}
         {...rest}

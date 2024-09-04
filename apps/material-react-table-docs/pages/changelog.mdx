@@ -9,7 +9,32 @@ import Head from 'next/head';
 
 ### Version 3.0.0
 
-TODO
+- `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages (you might be able to get away with lower MUI versions for a while, but eventually MUI V6 APIs will be used internally by MRT and your project will break)
+- `@mui/x-date-pickers` v7.15.0 is now a minimum required dependency
+- `react` and `react-dom` v18.0.0 are now a minimum required dependencies (some React 18 APIs are now used internally by MRT)
+- Keyboard navigation for table cells in now enabled by default. If you had added your own custom keyboard shortcuts, you may want to set `enableKeyboardShortcuts` to `false` or remove your custom shortcuts.
+- Removed deprecated `MRT_Virtualizer` type in favor of separate `MRT_RowVirtualizer` and `MRT_ColumnVirtualizer` types
+- Removed deprecated `text` in favor of the more consistent `label` type in dropdown/autocomplete/select option types.
+- Deprecated several `mui*Props` table options that were column-specific. These table options should either be specified in column defs or in the `defaultColumn` table option.
+  - `muiColumnActionsButtonProps`
+  - `muiColumnDragHandleProps`
+  - `muiCopyButtonProps`
+  - `muiEditTextFieldProps`
+  - `muiFilterAutocompleteProps`
+  - `muiFilterCheckboxProps`
+  - `muiFilterDatePickerProps`
+  - `muiFilterDateTimePickerProps`
+  - `muiFilterSliderProps`
+  - `muiFilterTextFieldProps`
+  - `muiFilterTimePickerProps`
+  - `muiTableBodyCellProps`
+  - `muiTableHeadCellProps`
+  - `muiTableFooterCellProps`
+  - `renderCellActionMenuItems`
+  - `renderColumnActionsMenuItems`
+  - `renderColumnFilterModeMenuItems`
+
+See the entire [v3 migration guide](/docs/getting-started/migrating-to-v3) for more details.
 
 Is anything missing from this V3 changelog? Make a PR or join the [Discord](https://discord.gg/5wqyRx6fnm) to discuss.
 

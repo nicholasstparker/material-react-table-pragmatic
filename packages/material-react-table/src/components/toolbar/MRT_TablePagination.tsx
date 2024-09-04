@@ -41,6 +41,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
     options: {
       enableToolbarInternalActions,
       icons: { ChevronLeftIcon, ChevronRightIcon, FirstPageIcon, LastPageIcon },
+      id,
       localization,
       muiPaginationProps,
       paginationDisplayMode,
@@ -107,7 +108,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
     >
       {showRowsPerPage && (
         <Box sx={{ alignItems: 'center', display: 'flex', gap: '8px' }}>
-          <InputLabel htmlFor="mrt-rows-per-page" sx={{ mb: 0 }}>
+          <InputLabel htmlFor={`mrt-rows-per-page-${id}`} sx={{ mb: 0 }}>
             {localization.rowsPerPage}
           </InputLabel>
           <Select
@@ -116,7 +117,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
             disabled={disabled}
             inputProps={{
               'aria-label': localization.rowsPerPage,
-              id: 'mrt-rows-per-page',
+              id: `mrt-rows-per-page-${id}`,
             }}
             label={localization.rowsPerPage}
             onChange={(event) =>
