@@ -184,9 +184,10 @@ export interface MRT_Localization {
   filterFuzzy: string;
   filterGreaterThan: string;
   filterGreaterThanOrEqualTo: string;
-  filterInNumberRange: string;
   filterIncludesString: string;
   filterIncludesStringSensitive: string;
+  filteringByColumn: string;
+  filterInNumberRange: string;
   filterLessThan: string;
   filterLessThanOrEqualTo: string;
   filterMode: string;
@@ -194,7 +195,6 @@ export interface MRT_Localization {
   filterNotEquals: string;
   filterStartsWith: string;
   filterWeakEquals: string;
-  filteringByColumn: string;
   goToFirstPage: string;
   goToLastPage: string;
   goToNextPage: string;
@@ -412,64 +412,6 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
     | 'id'
     | 'sortingFn'
   > {
-  AggregatedCell?: (props: {
-    cell: MRT_Cell<TData, TValue>;
-    column: MRT_Column<TData, TValue>;
-    row: MRT_Row<TData>;
-    table: MRT_TableInstance<TData>;
-    staticColumnIndex?: number;
-    staticRowIndex?: number;
-  }) => ReactNode;
-  Cell?: (props: {
-    cell: MRT_Cell<TData, TValue>;
-    column: MRT_Column<TData, TValue>;
-    renderedCellValue: ReactNode;
-    row: MRT_Row<TData>;
-    rowRef?: RefObject<HTMLTableRowElement>;
-    staticColumnIndex?: number;
-    staticRowIndex?: number;
-    table: MRT_TableInstance<TData>;
-  }) => ReactNode;
-  Edit?: (props: {
-    cell: MRT_Cell<TData, TValue>;
-    column: MRT_Column<TData, TValue>;
-    row: MRT_Row<TData>;
-    table: MRT_TableInstance<TData>;
-  }) => ReactNode;
-  Filter?: (props: {
-    column: MRT_Column<TData, TValue>;
-    header: MRT_Header<TData>;
-    rangeFilterIndex?: number;
-    table: MRT_TableInstance<TData>;
-  }) => ReactNode;
-  Footer?:
-    | ((props: {
-        column: MRT_Column<TData, TValue>;
-        footer: MRT_Header<TData>;
-        table: MRT_TableInstance<TData>;
-      }) => ReactNode)
-    | ReactNode;
-  GroupedCell?: (props: {
-    cell: MRT_Cell<TData, TValue>;
-    column: MRT_Column<TData, TValue>;
-    row: MRT_Row<TData>;
-    table: MRT_TableInstance<TData>;
-    staticColumnIndex?: number;
-    staticRowIndex?: number;
-  }) => ReactNode;
-  Header?:
-    | ((props: {
-        column: MRT_Column<TData, TValue>;
-        header: MRT_Header<TData>;
-        table: MRT_TableInstance<TData>;
-      }) => ReactNode)
-    | ReactNode;
-  PlaceholderCell?: (props: {
-    cell: MRT_Cell<TData, TValue>;
-    column: MRT_Column<TData, TValue>;
-    row: MRT_Row<TData>;
-    table: MRT_TableInstance<TData>;
-  }) => ReactNode;
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    * Specify a function here to point to the correct property in the data object.
@@ -486,7 +428,25 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
    * @example accessorKey: 'name.firstName' //deep key dot notation
    */
   accessorKey?: DeepKeys<TData> | (string & {});
+  AggregatedCell?: (props: {
+    cell: MRT_Cell<TData, TValue>;
+    column: MRT_Column<TData, TValue>;
+    row: MRT_Row<TData>;
+    table: MRT_TableInstance<TData>;
+    staticColumnIndex?: number;
+    staticRowIndex?: number;
+  }) => ReactNode;
   aggregationFn?: Array<MRT_AggregationFn<TData>> | MRT_AggregationFn<TData>;
+  Cell?: (props: {
+    cell: MRT_Cell<TData, TValue>;
+    column: MRT_Column<TData, TValue>;
+    renderedCellValue: ReactNode;
+    row: MRT_Row<TData>;
+    rowRef?: RefObject<HTMLTableRowElement>;
+    staticColumnIndex?: number;
+    staticRowIndex?: number;
+    table: MRT_TableInstance<TData>;
+  }) => ReactNode;
   /**
    * Specify what type of column this is. Either `data`, `display`, or `group`. Defaults to `data`.
    * Leave this blank if you are just creating a normal data column.
@@ -500,6 +460,12 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
     LiteralUnion<string & MRT_FilterOption>
   > | null;
   columns?: MRT_ColumnDef<TData, TValue>[];
+  Edit?: (props: {
+    cell: MRT_Cell<TData, TValue>;
+    column: MRT_Column<TData, TValue>;
+    row: MRT_Row<TData>;
+    table: MRT_TableInstance<TData>;
+  }) => ReactNode;
   editSelectOptions?:
     | ((props: {
         cell: MRT_Cell<TData, TValue>;
@@ -519,6 +485,12 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
   enableColumnOrdering?: boolean;
   enableEditing?: ((row: MRT_Row<TData>) => boolean) | boolean;
   enableFilterMatchHighlighting?: boolean;
+  Filter?: (props: {
+    column: MRT_Column<TData, TValue>;
+    header: MRT_Header<TData>;
+    rangeFilterIndex?: number;
+    table: MRT_TableInstance<TData>;
+  }) => ReactNode;
   filterFn?: MRT_FilterFn<TData>;
   filterSelectOptions?: DropdownOption[];
   filterVariant?:
@@ -539,6 +511,21 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
    * footer must be a string. If you want custom JSX to render the footer, you can also specify a `Footer` option. (Capital F)
    */
   footer?: string;
+  Footer?:
+    | ((props: {
+        column: MRT_Column<TData, TValue>;
+        footer: MRT_Header<TData>;
+        table: MRT_TableInstance<TData>;
+      }) => ReactNode)
+    | ReactNode;
+  GroupedCell?: (props: {
+    cell: MRT_Cell<TData, TValue>;
+    column: MRT_Column<TData, TValue>;
+    row: MRT_Row<TData>;
+    table: MRT_TableInstance<TData>;
+    staticColumnIndex?: number;
+    staticRowIndex?: number;
+  }) => ReactNode;
   /**
    * If `layoutMode` is `'grid'` or `'grid-no-grow'`, you can specify the flex grow value for individual columns to still grow and take up remaining space, or set to `false`/0 to not grow.
    */
@@ -547,6 +534,13 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
    * header must be a string. If you want custom JSX to render the header, you can also specify a `Header` option. (Capital H)
    */
   header: string;
+  Header?:
+    | ((props: {
+        column: MRT_Column<TData, TValue>;
+        header: MRT_Header<TData>;
+        table: MRT_TableInstance<TData>;
+      }) => ReactNode)
+    | ReactNode;
   /**
    * Either an `accessorKey` or a combination of an `accessorFn` and `id` are required for a data column definition.
    *
@@ -651,6 +645,12 @@ export interface MRT_ColumnDef<TData extends MRT_RowData, TValue = unknown>
         table: MRT_TableInstance<TData>;
       }) => TableCellProps)
     | TableCellProps;
+  PlaceholderCell?: (props: {
+    cell: MRT_Cell<TData, TValue>;
+    column: MRT_Column<TData, TValue>;
+    row: MRT_Row<TData>;
+    table: MRT_TableInstance<TData>;
+  }) => ReactNode;
   renderCellActionMenuItems?: (props: {
     cell: MRT_Cell<TData>;
     closeMenu: () => void;
@@ -813,12 +813,6 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   columnFilterModeOptions?: Array<
     LiteralUnion<string & MRT_FilterOption>
   > | null;
-  columnVirtualizerInstanceRef?: MutableRefObject<MRT_ColumnVirtualizer | null>;
-  columnVirtualizerOptions?:
-    | ((props: {
-        table: MRT_TableInstance<TData>;
-      }) => Partial<VirtualizerOptions<HTMLDivElement, HTMLTableCellElement>>)
-    | Partial<VirtualizerOptions<HTMLDivElement, HTMLTableCellElement>>;
   /**
    * The columns to display in the table. `accessorKey`s or `accessorFn`s must match keys in the `data` table option.
    *
@@ -830,6 +824,12 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
    * @link https://www.material-react-table.com/docs/api/column-options
    */
   columns: MRT_ColumnDef<TData, any>[];
+  columnVirtualizerInstanceRef?: MutableRefObject<MRT_ColumnVirtualizer | null>;
+  columnVirtualizerOptions?:
+    | ((props: {
+        table: MRT_TableInstance<TData>;
+      }) => Partial<VirtualizerOptions<HTMLDivElement, HTMLTableCellElement>>)
+    | Partial<VirtualizerOptions<HTMLDivElement, HTMLTableCellElement>>;
   createDisplayMode?: 'custom' | 'modal' | 'row';
   /**
    * Pass your data as an array of objects. Objects can theoretically be any shape, but it's best to keep them consistent.
@@ -870,7 +870,7 @@ export interface MRT_TableOptions<TData extends MRT_RowData>
   enableFullScreenToggle?: boolean;
   enableGlobalFilterModes?: boolean;
   enableGlobalFilterRankedResults?: boolean;
-  enableCellNavigation?: boolean;
+  enableKeyboardShortcuts?: boolean;
   enablePagination?: boolean;
   enableRowActions?: boolean;
   enableRowDragging?: boolean;

@@ -10,6 +10,13 @@ import {
 } from './row.utils';
 import { parseFromValuesOrFunc } from './utils';
 
+const isWinCtrlMacMeta = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
+  return (
+    (event.ctrlKey && navigator.platform.toLowerCase().includes('win')) ||
+    (event.metaKey && navigator.platform.toLowerCase().includes('mac'))
+  );
+};
+
 export const isCellEditable = <TData extends MRT_RowData>({
   cell,
   table,
@@ -54,7 +61,7 @@ export const openEditingCell = <TData extends MRT_RowData>({
   }
 };
 
-export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
+export const cellKeyboardShortcuts = <TData extends MRT_RowData = MRT_RowData>({
   cell,
   cellElements,
   cellValue,
@@ -73,10 +80,14 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
   parentElement?: HTMLTableRowElement;
   table: MRT_TableInstance<TData>;
 }) => {
-  if (cellValue && (event.ctrlKey || event.metaKey) && event.key === 'c') {
+  if (!table.options.enableKeyboardShortcuts) return;
+  const currentCell = event.currentTarget;
+
+  if (cellValue && isWinCtrlMacMeta(event) && event.key === 'c') {
     navigator.clipboard.writeText(cellValue);
   } else if (['Enter', ' '].includes(event.key)) {
     if (cell?.column?.id === 'mrt-row-select') {
+      event.preventDefault();
       getMRT_RowSelectionHandler({
         row: cell.row,
         table,
@@ -87,6 +98,7 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
       header?.column?.id === 'mrt-row-select' &&
       table.options.enableSelectAll
     ) {
+      event.preventDefault();
       getMRT_SelectAllHandler({
         table,
       })(event as any);
@@ -95,15 +107,16 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
       (cell.row.getCanExpand() ||
         table.options.renderDetailPanel?.({ row: cell.row, table }))
     ) {
+      event.preventDefault();
       cell.row.toggleExpanded();
     } else if (
       header?.column?.id === 'mrt-row-expand' &&
       table.options.enableExpandAll
     ) {
+      event.preventDefault();
       table.toggleAllRowsExpanded();
-    } else if (header?.column?.getCanSort()) {
-      header.column.toggleSorting();
     } else if (cell?.column.id === 'mrt-row-pin') {
+      event.preventDefault();
       cell.row.getIsPinned()
         ? cell.row.pin(false)
         : cell.row.pin(
@@ -111,16 +124,32 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
               ? 'bottom'
               : 'top',
           );
+    } else if (header && isWinCtrlMacMeta(event)) {
+      const actionsButton = currentCell.querySelector(
+        `button[aria-label="${table.options.localization.columnActions}"]`,
+      );
+      if (actionsButton) {
+        (actionsButton as HTMLButtonElement).click();
+      }
+    } else if (header?.column?.getCanSort()) {
+      event.preventDefault();
+      header.column.toggleSorting();
     }
   } else if (
-    ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(
-      event.key,
-    )
+    [
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End',
+      'PageUp',
+      'PageDown',
+    ].includes(event.key)
   ) {
     event.preventDefault();
-    const currentCell = event.currentTarget;
-    const currentRow = parentElement || currentCell.closest('tr');
 
+    const currentRow = parentElement || currentCell.closest('tr');
     const tableElement = containerElement || currentCell.closest('table');
     const allCells =
       cellElements ||
@@ -143,6 +172,17 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
       const rowCells = Array.from(row?.children || []);
       const targetCell =
         edge === 'f' ? rowCells[0] : rowCells[rowCells.length - 1];
+      return targetCell as HTMLElement;
+    };
+
+    //page up/down first or last cell in column
+    const findBottomTopCell = (columnIndex: number, edge: 'b' | 't') => {
+      const row =
+        edge === 't'
+          ? tableElement?.querySelector('tr')
+          : tableElement?.lastElementChild?.lastElementChild;
+      const rowCells = Array.from(row?.children || []);
+      const targetCell = rowCells[columnIndex];
       return targetCell as HTMLElement;
     };
 
@@ -173,10 +213,16 @@ export const cellNavigation = <TData extends MRT_RowData = MRT_RowData>({
         nextCell = findAdjacentCell(currentIndex, 'f');
         break;
       case 'Home':
-        nextCell = findEdgeCell(event.ctrlKey ? 'f' : 'c', 'f');
+        nextCell = findEdgeCell(isWinCtrlMacMeta(event) ? 'f' : 'c', 'f');
         break;
       case 'End':
-        nextCell = findEdgeCell(event.ctrlKey ? 'l' : 'c', 'l');
+        nextCell = findEdgeCell(isWinCtrlMacMeta(event) ? 'l' : 'c', 'l');
+        break;
+      case 'PageUp':
+        nextCell = findBottomTopCell(currentIndex, 't');
+        break;
+      case 'PageDown':
+        nextCell = findBottomTopCell(currentIndex, 'b');
         break;
     }
 

@@ -18,7 +18,7 @@ import {
 } from '../../types';
 import {
   isCellEditable,
-  cellNavigation,
+  cellKeyboardShortcuts,
   openEditingCell,
 } from '../../utils/cell.utils';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
@@ -58,7 +58,7 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
       enableColumnOrdering,
       enableColumnPinning,
       enableGrouping,
-      enableCellNavigation,
+      enableKeyboardShortcuts,
       layoutMode,
       mrtTheme: { draggingBorderColor },
       muiSkeletonProps,
@@ -233,14 +233,12 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
-    if (enableCellNavigation) {
-      cellNavigation({
-        cell,
-        cellValue: cell.getValue<string>(),
-        event,
-        table,
-      });
-    }
+    cellKeyboardShortcuts({
+      cell,
+      cellValue: cell.getValue<string>(),
+      event,
+      table,
+    });
     tableCellProps?.onKeyDown?.(event);
   };
 
@@ -249,7 +247,7 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
       align={theme.direction === 'rtl' ? 'right' : 'left'}
       data-index={staticColumnIndex}
       data-pinned={!!isColumnPinned || undefined}
-      tabIndex={enableCellNavigation ? 0 : undefined}
+      tabIndex={enableKeyboardShortcuts ? 0 : undefined}
       {...tableCellProps}
       onKeyDown={handleKeyDown}
       onContextMenu={handleContextMenu}

@@ -36,7 +36,6 @@ import { EthicalAd } from './EthicalAd';
 
 export interface Props {
   Component?: any;
-  apiCode?: string;
   tableId: string;
   typeScriptCode: string;
   showTopRow?: boolean;
@@ -44,7 +43,6 @@ export interface Props {
 
 export const SourceCodeSnippet = ({
   Component,
-  apiCode,
   tableId,
   typeScriptCode,
   showTopRow = true,
@@ -58,6 +56,7 @@ export const SourceCodeSnippet = ({
     setSecondaryColor,
     primaryColor,
     setPrimaryColor,
+    setIsSandboxOpen,
   } = useThemeContext();
   const isMobile = useMediaQuery('(max-width: 720px)');
   const [codeTab, setCodeTab] = useState<
@@ -75,6 +74,13 @@ export const SourceCodeSnippet = ({
     }
   }, []);
 
+  useEffect(() => {
+    setIsSandboxOpen(['stackblitz', 'sandbox'].includes(codeTab));
+    return () => {
+      setIsSandboxOpen(false);
+    };
+  }, [codeTab]);
+
   const handleDismissV2Alert = () => {
     localStorage.setItem('v2AlertDismissed', 'true');
     setShowV2Alert(false);
@@ -82,9 +88,7 @@ export const SourceCodeSnippet = ({
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(
-      (codeTab === 'ts' ? typeScriptCode : apiCode) ?? '',
-    );
+    navigator.clipboard.writeText(typeScriptCode ?? '');
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 3000);
   };
@@ -227,7 +231,9 @@ export const SourceCodeSnippet = ({
               </Box>
             </Box>
           )}
-          <Component />
+          <Collapse in={!['stackblitz', 'sandbox'].includes(codeTab)}>
+            <Component />
+          </Collapse>
         </>
       )}
       <div>
@@ -291,19 +297,6 @@ export const SourceCodeSnippet = ({
                 >
                   {isMobile ? 'TS' : 'TypeScript'}
                 </ToggleButton>
-                {apiCode && (
-                  <ToggleButton
-                    onClick={() => {
-                      setCodeTab('api');
-                      plausible('toggle-to-api');
-                    }}
-                    value="api"
-                    selected={codeTab === 'api'}
-                    sx={{ textTransform: 'none' }}
-                  >
-                    {isMobile ? 'API' : 'Back-end API'}
-                  </ToggleButton>
-                )}
                 <ToggleButton
                   onClick={() => {
                     setCodeTab('stackblitz');
@@ -340,6 +333,7 @@ export const SourceCodeSnippet = ({
               border: '0',
               borderRadius: '4px',
               overflow: 'hidden',
+              padding: '1rem 0',
             }}
             title="stackblitz"
             allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
@@ -357,6 +351,7 @@ export const SourceCodeSnippet = ({
               border: '0',
               borderRadius: '4px',
               overflow: 'hidden',
+              padding: '1rem 0',
             }}
             title="codesandbox"
             allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
@@ -366,7 +361,7 @@ export const SourceCodeSnippet = ({
         {['ts', 'api'].includes(codeTab) && (
           <Paper elevation={3}>
             <Highlight
-              code={(codeTab === 'ts' ? typeScriptCode : apiCode) ?? ''}
+              code={typeScriptCode ?? ''}
               language={'tsx'}
               theme={
                 theme.palette.mode === 'dark'

@@ -55,6 +55,7 @@ You should now be on Material React Table V3! Look for any code or type errors i
 
 - `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages (you might be able to get away with lower MUI versions for a while, but eventually MUI V6 APIs will be used internally by MRT and your project will break)
 - `@mui/x-date-pickers` v7.15.0 is now a minimum required dependency
+- Keyboard navigation for table cells in now enabled by default. If you had added your own custom keyboard shortcuts, you may want to set `enableKeyboardShortcuts` to `false` or remove your custom shortcuts.
 - Removed deprecated `MRT_Virtualizer` type in favor of separate `MRT_RowVirtualizer` and `MRT_ColumnVirtualizer` types
 - Removed deprecated `text` in favor of the more consistent `label` type in dropdown/autocomplete/select option types.
 - Deprecated several `mui*Props` table options that were column-specific. These table options should either be specified in column defs or in the `defaultColumn` table option.

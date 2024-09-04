@@ -493,7 +493,7 @@ export const tableOptions: TableOption[] = [
     type: 'boolean',
   },
   {
-    tableOption: 'enableCellNavigation',
+    tableOption: 'enableKeyboardShortcuts',
     defaultValue: 'true',
     description: '',
     link: '',

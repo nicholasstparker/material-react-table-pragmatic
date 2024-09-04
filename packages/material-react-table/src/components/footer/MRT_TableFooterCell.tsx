@@ -7,7 +7,7 @@ import {
 } from '../../types';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { cellNavigation } from '../../utils/cell.utils';
+import { cellKeyboardShortcuts } from '../../utils/cell.utils';
 
 export interface MRT_TableFooterCellProps<TData extends MRT_RowData>
   extends TableCellProps {
@@ -28,7 +28,7 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
     options: {
       enableColumnPinning,
       muiTableFooterCellProps,
-      enableCellNavigation,
+      enableKeyboardShortcuts,
     },
   } = table;
   const { density } = getState();
@@ -49,13 +49,11 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
-    if (enableCellNavigation) {
-      cellNavigation({
-        event,
-        cellValue: footer.column.columnDef.footer,
-        table,
-      });
-    }
+    cellKeyboardShortcuts({
+      event,
+      cellValue: footer.column.columnDef.footer,
+      table,
+    });
     tableCellProps?.onKeyDown?.(event);
   };
 
@@ -71,6 +69,7 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
       colSpan={footer.colSpan}
       data-index={staticColumnIndex}
       data-pinned={!!isColumnPinned || undefined}
+      tabIndex={enableKeyboardShortcuts ? 0 : undefined}
       variant="footer"
       {...tableCellProps}
       onKeyDown={handleKeyDown}

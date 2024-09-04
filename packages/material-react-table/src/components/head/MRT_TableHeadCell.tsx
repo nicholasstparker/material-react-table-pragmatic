@@ -17,7 +17,7 @@ import {
 } from '../../types';
 import { getCommonMRTCellStyles } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { cellNavigation } from '../../utils/cell.utils';
+import { cellKeyboardShortcuts } from '../../utils/cell.utils';
 
 export interface MRT_TableHeadCellProps<TData extends MRT_RowData>
   extends TableCellProps {
@@ -41,12 +41,12 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
       columnFilterDisplayMode,
       columnResizeDirection,
       columnResizeMode,
+      enableKeyboardShortcuts,
       enableColumnActions,
       enableColumnDragging,
       enableColumnOrdering,
       enableColumnPinning,
       enableGrouping,
-      enableCellNavigation,
       enableMultiSort,
       layoutMode,
       mrtTheme: { draggingBorderColor },
@@ -150,14 +150,13 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTableCellElement>) => {
-    if (enableCellNavigation) {
-      cellNavigation({
-        event,
-        cellValue: header.column.columnDef.header,
-        table,
-        header,
-      });
-    }
+    cellKeyboardShortcuts({
+      event,
+      cellValue: header.column.columnDef.header,
+      table,
+      header,
+    });
+
     tableCellProps?.onKeyDown?.(event);
   };
 
@@ -199,7 +198,7 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
           }
         }
       }}
-      tabIndex={enableCellNavigation ? 0 : undefined}
+      tabIndex={enableKeyboardShortcuts ? 0 : undefined}
       {...tableCellProps}
       onKeyDown={handleKeyDown}
       sx={(theme: Theme) => ({

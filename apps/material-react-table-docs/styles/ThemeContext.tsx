@@ -11,6 +11,8 @@ const ThemeContext = createContext<{
   setPrimaryColor: (primaryColor: string | undefined) => void;
   secondaryColor: string;
   setSecondaryColor: (secondaryColor: string) => void;
+  isSandboxOpen: boolean;
+  setIsSandboxOpen: (isSandboxOpen: boolean) => void;
 }>({} as any);
 
 export const ThemeContextProvider = ({ children }) => {
@@ -18,6 +20,7 @@ export const ThemeContextProvider = ({ children }) => {
   const [primaryColor, setPrimaryColor] = useState<string | undefined>();
   const [secondaryColor, setSecondaryColor] =
     useState<string>('rgb(20,184,166)');
+  const [isSandboxOpen, setIsSandboxOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,6 +44,8 @@ export const ThemeContextProvider = ({ children }) => {
         setPrimaryColor,
         secondaryColor,
         setSecondaryColor,
+        isSandboxOpen,
+        setIsSandboxOpen,
       }}
     >
       <CssBaseline />
