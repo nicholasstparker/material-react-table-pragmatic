@@ -1,5 +1,4 @@
 import Paper, { type PaperProps } from '@mui/material/Paper';
-import FocusTrap from '@mui/material/Unstable_TrapFocus/FocusTrap';
 import { useTheme } from '@mui/material/styles';
 import { MRT_TableContainer } from './MRT_TableContainer';
 import { type MRT_RowData, type MRT_TableInstance } from '../../types';
@@ -38,55 +37,53 @@ export const MRT_TablePaper = <TData extends MRT_RowData>({
   const theme = useTheme();
 
   return (
-    <FocusTrap disableEnforceFocus open={isFullScreen}>
-      <Paper
-        elevation={2}
-        onKeyDown={(e) => e.key === 'Escape' && table.setIsFullScreen(false)}
-        {...paperProps}
-        ref={(ref: HTMLDivElement) => {
-          tablePaperRef.current = ref;
-          if (paperProps?.ref) {
-            //@ts-ignore
-            paperProps.ref.current = ref;
-          }
-        }}
-        style={{
-          ...(isFullScreen
-            ? {
-                bottom: 0,
-                height: '100dvh',
-                left: 0,
-                margin: 0,
-                maxHeight: '100dvh',
-                maxWidth: '100dvw',
-                padding: 0,
-                position: 'fixed',
-                right: 0,
-                top: 0,
-                width: '100dvw',
-                zIndex: theme.zIndex.modal,
-              }
-            : {}),
-          ...paperProps?.style,
-        }}
-        sx={(theme) => ({
-          backgroundColor: baseBackgroundColor,
-          backgroundImage: 'unset',
-          overflow: 'hidden',
-          transition: 'all 100ms ease-in-out',
-          ...(parseFromValuesOrFunc(paperProps?.sx, theme) as any),
-        })}
-      >
-        {enableTopToolbar &&
-          (parseFromValuesOrFunc(renderTopToolbar, { table }) ?? (
-            <MRT_TopToolbar table={table} />
-          ))}
-        <MRT_TableContainer table={table} />
-        {enableBottomToolbar &&
-          (parseFromValuesOrFunc(renderBottomToolbar, { table }) ?? (
-            <MRT_BottomToolbar table={table} />
-          ))}
-      </Paper>
-    </FocusTrap>
+    <Paper
+      elevation={2}
+      onKeyDown={(e) => e.key === 'Escape' && table.setIsFullScreen(false)}
+      {...paperProps}
+      ref={(ref: HTMLDivElement) => {
+        tablePaperRef.current = ref;
+        if (paperProps?.ref) {
+          //@ts-ignore
+          paperProps.ref.current = ref;
+        }
+      }}
+      style={{
+        ...(isFullScreen
+          ? {
+              bottom: 0,
+              height: '100dvh',
+              left: 0,
+              margin: 0,
+              maxHeight: '100dvh',
+              maxWidth: '100dvw',
+              padding: 0,
+              position: 'fixed',
+              right: 0,
+              top: 0,
+              width: '100dvw',
+              zIndex: theme.zIndex.modal,
+            }
+          : {}),
+        ...paperProps?.style,
+      }}
+      sx={(theme) => ({
+        backgroundColor: baseBackgroundColor,
+        backgroundImage: 'unset',
+        overflow: 'hidden',
+        transition: 'all 100ms ease-in-out',
+        ...(parseFromValuesOrFunc(paperProps?.sx, theme) as any),
+      })}
+    >
+      {enableTopToolbar &&
+        (parseFromValuesOrFunc(renderTopToolbar, { table }) ?? (
+          <MRT_TopToolbar table={table} />
+        ))}
+      <MRT_TableContainer table={table} />
+      {enableBottomToolbar &&
+        (parseFromValuesOrFunc(renderBottomToolbar, { table }) ?? (
+          <MRT_BottomToolbar table={table} />
+        ))}
+    </Paper>
   );
 };
