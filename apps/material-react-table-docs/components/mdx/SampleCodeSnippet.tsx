@@ -69,7 +69,9 @@ export const SampleCodeSnippet = ({ paperSxProps, ...props }: Props) => {
         code={code}
         language={language}
         theme={
-          theme.palette.mode === 'dark' ? themes.oneDark : themes.jettwaveLight
+          theme.palette.mode === 'dark'
+            ? themes.oceanicNext
+            : themes.nightOwlLight
         }
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (

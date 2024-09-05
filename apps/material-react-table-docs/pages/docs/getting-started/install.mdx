@@ -1,11 +1,18 @@
 import Head from 'next/head';
 import { InstallCommand } from '../../../components/mdx/InstallCommand';
 import { FAQs } from '../../../components/mdx/FAQs';
+import { CompatibilityTable } from '../../../components/mdx/CompatibilityTable';
 
 <Head>
   <title>{'Installation - Material React Table V3 Docs'}</title>
   <meta name="description" content="How to install Material React Table" />
 </Head>
+
+## Compatibility Chart
+
+First, before installing Material React Table, let's make sure you have the correct versions of React, Material UI, and Material UI X Date Pickers installed.
+
+<CompatibilityTable />
 
 ## Installation
 
@@ -36,6 +43,18 @@ import { FAQs } from '../../../components/mdx/FAQs';
 
 ### Common Errors
 
+If you see a react import error like this:
+
+```bash
+Uncaught TypeError: (0 , import_react15.useId) is not a function
+    at useMRT_TableOptions (useMRT_TableOptions.ts:95:8)
+    at useMaterialReactTable (useMaterialReactTable.ts:12:24)
+```
+
+It means that you don't have the correct version of React installed. Make sure you have React 18.0 or higher.
+
+---
+
 If you get an error like this:
 
 ```bash
@@ -46,14 +65,16 @@ or a class/function (for composite components) but got: undefined.
 You likely forgot to export your component from the file it's defined in,
 or you might have mixed up default and named imports.
 
-Or You might be trying to import `MaterialReactTable` from the default export still, which is no longer supported in v2. Make sure you are importing the named export instead:
+Or You might be trying to import `MaterialReactTable` from the default export still, which is no longer supported in v2+. Make sure you are importing the named export instead:
 
 ```diff
 - import MaterialReactTable from 'material-react-table'
 + import { MaterialReactTable } from 'material-react-table'
 ```
 
-Or you probably do not have the correct version of Material UI installed. Make sure all material ui packages are at least V6.11 or higher.
+Or you probably do not have the correct version of Material UI installed. Make sure all material ui packages are at least V6.0 or higher if you are using MRT v3 or higher.
+
+---
 
 If you are using an older version of `webpack` or `create-react-app` and get an error like this:
 
@@ -74,10 +95,10 @@ Then try upgrading either `webpack` or `react-scripts` to the latest versions.
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Why is React 17 or 18 required for Material React Table?',
+        name: 'Why is React 18 required for Material React Table?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '<p>React 17 or later is required by Material UI V6 itself. Some event listeners on Material UI TextField components will not work with React 16.x.</p>',
+          text: '<p>As of MRT V3, it uses some React 18+ features, so React 18 is required. MRT V2 and below are compatible with React 17.</p>',
         },
       },
       {
