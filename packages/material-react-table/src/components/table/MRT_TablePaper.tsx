@@ -38,7 +38,7 @@ export const MRT_TablePaper = <TData extends MRT_RowData>({
   const theme = useTheme();
 
   return (
-    <FocusTrap open={isFullScreen}>
+    <FocusTrap disableEnforceFocus open={isFullScreen}>
       <Paper
         elevation={2}
         onKeyDown={(e) => e.key === 'Escape' && table.setIsFullScreen(false)}

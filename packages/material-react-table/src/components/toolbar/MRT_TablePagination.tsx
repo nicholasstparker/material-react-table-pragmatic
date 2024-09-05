@@ -49,7 +49,6 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
   } = table;
   const {
     pagination: { pageIndex = 0, pageSize = 10 },
-    showGlobalFilter,
   } = getState();
 
   const paginationProps = {
@@ -95,9 +94,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
         justifyContent: { md: 'space-between', sm: 'center' },
         justifySelf: 'flex-end',
         mt:
-          position === 'top' &&
-          enableToolbarInternalActions &&
-          !showGlobalFilter
+          position === 'top' && enableToolbarInternalActions
             ? '3rem'
             : undefined,
         position: 'relative',

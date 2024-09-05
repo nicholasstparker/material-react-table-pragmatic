@@ -102,7 +102,7 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            p: '2px 4px',
+            p: '2px 8px',
           }}
           disableGutters
           variant="dense"
