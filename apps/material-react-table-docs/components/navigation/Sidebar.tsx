@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { SideBarItems } from './SidebarItems';
 import { RouteItem, routes } from './routes';
 import { matchSorter } from 'match-sorter';
+import { usePlausible } from 'next-plausible';
 
 interface Props {
   navOpen: boolean;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const SideBar = ({ navOpen, setNavOpen }: Props) => {
+  const plausible = usePlausible();
   const isMobile = useMediaQuery('(max-width: 900px)');
 
   const [search, setSearch] = useState('');
@@ -27,8 +29,12 @@ export const SideBar = ({ navOpen, setNavOpen }: Props) => {
   const filteredRoutes = useMemo(() => {
     const filterRoutesRecursively = (routes: RouteItem[]): RouteItem[] => {
       return routes.reduce((acc: RouteItem[], route) => {
+        const matchKeys = ['label'];
+        if (route.keywords) {
+          matchKeys.push('keywords');
+        }
         const matchesSearch =
-          matchSorter([route], search, { keys: ['label'] }).length > 0;
+          matchSorter([route], search, { keys: matchKeys }).length > 0;
 
         if (matchesSearch) {
           // If the parent route matches, include all its items and secondary items
@@ -88,6 +94,7 @@ export const SideBar = ({ navOpen, setNavOpen }: Props) => {
         }}
       >
         <TextField
+          onFocus={() => plausible('page-filter')}
           placeholder="Find Page"
           variant="outlined"
           fullWidth
@@ -153,6 +160,7 @@ export const SideBar = ({ navOpen, setNavOpen }: Props) => {
             routes={filteredRoutes}
             setNavOpen={setNavOpen}
             setSearch={setSearch}
+            search={search}
           />
         )}
       </List>

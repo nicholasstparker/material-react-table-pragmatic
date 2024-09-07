@@ -32,6 +32,7 @@
     "@types/mdx": "^2.0.13",
     "dayjs": "^1.11.13",
     "export-to-csv": "^1.4.0",
+    "highlight-words": "1.2.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.3",
     "match-sorter": "^6.3.4",

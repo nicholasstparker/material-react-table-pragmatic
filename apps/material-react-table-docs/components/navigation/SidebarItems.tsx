@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { alpha, ListItemButton, useMediaQuery, Box } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { type RouteItem } from './routes';
+import highlightWords from 'highlight-words';
 
 interface Props {
   depth?: number;
@@ -12,6 +13,7 @@ interface Props {
   routes: RouteItem[];
   setNavOpen: (navOpen: boolean) => void;
   setSearch: (search: string) => void;
+  search: string;
 }
 
 export const SideBarItems = ({
@@ -21,6 +23,7 @@ export const SideBarItems = ({
   routes,
   setNavOpen,
   setSearch,
+  search,
 }: Props) => {
   const { pathname } = useRouter();
   const isMobile = useMediaQuery('(max-width: 900px)');
@@ -39,13 +42,27 @@ export const SideBarItems = ({
   return (
     <>
       {routes.map(
-        ({ href, items, label, divider, external, secondaryItems }) => {
+        ({
+          href,
+          items,
+          label,
+          divider,
+          external,
+          secondaryItems,
+          keywords,
+        }) => {
           const secondaryHrefs = secondaryItems?.map((i) => i.href);
 
           const isSelected = pathname === href;
           const isSelectedParent = secondaryHrefs?.includes(pathname);
           const willBeSecondary =
             !!secondaryItems?.length && (isSelectedParent || expandAll);
+
+          const matchingKeyWords = search
+            ? keywords?.filter((word) =>
+                word.toLowerCase().includes(search.toLowerCase()),
+              )
+            : undefined;
 
           return (
             <Fragment key={label}>
@@ -83,7 +100,11 @@ export const SideBarItems = ({
                           ? '1.25rem'
                           : '1rem',
                     fontWeight: isSelectedParent ? 'bold' : 'normal',
-                    height: items ? '2.5rem' : '2rem',
+                    height: matchingKeyWords?.length
+                      ? '3.5rem'
+                      : items
+                        ? '2.5rem'
+                        : '2rem',
                     lineHeight: depth === 0 && !items ? '1.25rem' : '0.75rem',
                     padding: '0',
                     whiteSpace: 'nowrap',
@@ -97,7 +118,11 @@ export const SideBarItems = ({
                       ml: `${depth}rem`,
                     }}
                   >
-                    {label}
+                    <HighlightedText label={label} search={search} />
+                    <HighlightedKeywords
+                      keywords={matchingKeyWords}
+                      search={search}
+                    />
                     {external && (
                       <LaunchIcon fontSize="small" sx={{ m: '-0.25rem 4px' }} />
                     )}
@@ -111,6 +136,7 @@ export const SideBarItems = ({
                   isSecondary={willBeSecondary}
                   routes={willBeSecondary ? secondaryItems : items!}
                   setNavOpen={setNavOpen}
+                  search={search}
                   setSearch={setSearch}
                 />
               )}
@@ -119,5 +145,72 @@ export const SideBarItems = ({
         },
       )}
     </>
+  );
+};
+
+const HighlightedText = ({
+  search,
+  label,
+}: {
+  search: string;
+  label: string;
+}) => {
+  const chunks = highlightWords?.({
+    matchExactly: false,
+    query: search,
+    text: label?.toString() as string,
+  });
+  if (chunks?.length > 1 || chunks?.[0]?.match) {
+    return (
+      <span aria-label={label} role="note">
+        {chunks?.map(({ key, match, text }) => (
+          <Box
+            aria-hidden="true"
+            component="span"
+            key={key}
+            sx={
+              match
+                ? (theme) => ({
+                    backgroundColor: theme.palette.warning.light,
+                    borderRadius: '2px',
+                    color: (theme) =>
+                      theme.palette.mode === 'dark'
+                        ? theme.palette.common.black
+                        : theme.palette.common.white,
+                    padding: '2px 1px',
+                  })
+                : undefined
+            }
+          >
+            {text}
+          </Box>
+        ))}
+      </span>
+    );
+  }
+  return label;
+};
+
+const HighlightedKeywords = ({
+  keywords,
+  search,
+}: {
+  keywords: string[] | undefined;
+  search: string;
+}) => {
+  if (!keywords?.length || !search) return null;
+  return (
+    <Box
+      component="div"
+      sx={{
+        display: 'block',
+        mt: '12px',
+        color: 'text.secondary',
+        fontSize: '0.8rem',
+        fontStyle: 'italic',
+      }}
+    >
+      (<HighlightedText label={keywords.join(', ')} search={search} />)
+    </Box>
   );
 };

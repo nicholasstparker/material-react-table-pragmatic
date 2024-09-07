@@ -74,6 +74,9 @@ importers:
       export-to-csv:
         specifier: ^1.4.0
         version: 1.4.0
+      highlight-words:
+        specifier: 1.2.2
+        version: 1.2.2
       jspdf:
         specifier: ^2.5.1
         version: 2.5.1
