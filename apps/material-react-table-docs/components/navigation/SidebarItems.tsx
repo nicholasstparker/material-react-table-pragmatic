@@ -7,21 +7,26 @@ import { type RouteItem } from './routes';
 
 interface Props {
   depth?: number;
+  expandAll?: boolean;
+  isSecondary?: boolean;
   routes: RouteItem[];
   setNavOpen: (navOpen: boolean) => void;
-  isSecondary?: boolean;
+  setSearch: (search: string) => void;
 }
 
 export const SideBarItems = ({
   depth = 1,
+  expandAll,
+  isSecondary,
   routes,
   setNavOpen,
-  isSecondary,
+  setSearch,
 }: Props) => {
   const { pathname } = useRouter();
   const isMobile = useMediaQuery('(max-width: 900px)');
 
   const handleCloseMenu = () => {
+    setSearch('');
     if (isMobile) setTimeout(() => setNavOpen(false), 200);
   };
 
@@ -39,7 +44,8 @@ export const SideBarItems = ({
 
           const isSelected = pathname === href;
           const isSelectedParent = secondaryHrefs?.includes(pathname);
-          const willBeSecondary = !!secondaryItems?.length && isSelectedParent;
+          const willBeSecondary =
+            !!secondaryItems?.length && (isSelectedParent || expandAll);
 
           return (
             <Fragment key={label}>
@@ -51,6 +57,13 @@ export const SideBarItems = ({
                     selectedItemRef(node, isSelected && !isSelectedParent)
                   }
                   onClick={handleCloseMenu}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleCloseMenu();
+                      e.currentTarget.parentElement?.click();
+                    }
+                  }}
                   sx={(theme) => ({
                     color: isSecondary
                       ? theme.palette.mode === 'dark'
@@ -93,10 +106,12 @@ export const SideBarItems = ({
               </Link>
               {(items || willBeSecondary) && (
                 <SideBarItems
-                  routes={willBeSecondary ? secondaryItems : items!}
-                  isSecondary={willBeSecondary}
                   depth={depth + 1}
+                  expandAll={expandAll}
+                  isSecondary={willBeSecondary}
+                  routes={willBeSecondary ? secondaryItems : items!}
                   setNavOpen={setNavOpen}
+                  setSearch={setSearch}
                 />
               )}
             </Fragment>
