@@ -185,7 +185,7 @@ export const MRT_FilterTextField = <TData extends MRT_RowData>({
     textFieldProps?.onChange?.(event);
   };
 
-  const handleAutocompleteChange = (newValue: DropdownOption) => {
+  const handleAutocompleteChange = (newValue: DropdownOption | null) => {
     setAutocompleteValue(newValue);
     handleChange(getValueAndLabel(newValue).value);
   };
@@ -422,7 +422,8 @@ export const MRT_FilterTextField = <TData extends MRT_RowData>({
           getOptionLabel={(option: DropdownOption) =>
             getValueAndLabel(option).label
           }
-          onChange={(_e, newValue: DropdownOption) =>
+          // @ts-ignore
+          onChange={(_e, newValue: DropdownOption | null) =>
             handleAutocompleteChange(newValue)
           }
           options={
