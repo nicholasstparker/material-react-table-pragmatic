@@ -31,7 +31,7 @@ const columns: MRT_ColumnDef<(typeof data)[0]>[] = [
           },
         })}
       >
-        <>{cell.getValue()}</>
+        <>{cell.getValue<string>()}</>
       </Link>
     ),
   },
