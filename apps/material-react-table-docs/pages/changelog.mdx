@@ -7,11 +7,19 @@ import Head from 'next/head';
 
 ## MRT V3 Changelog
 
-### Version 3.0.1
+### Version 3.0.2 - 2024-12-08
+
+- Fixed rendering of multi-select filter when filter value is an empty array
+- Rearranged execution of `muiTableBodyCellProps?.onKeyDown` internally to allow these events to be overridden or even skipped
+- Fixed MRT_RowActionMenu key prop internally
+- Corrected Sweedish `sv` locale translations
+- Removed 'new-password' from autocomplete in text fields and just use 'off'
+
+### Version 3.0.1 - 2024-09-05
 
 - Removed fullscreen MUI FocusTrap wrapper for now since vitest had issues with it
 
-### Version 3.0.0
+### Version 3.0.0 - 2024-09-05
 
 - `@mui/material` and `@mui/icons-material` v6.0.0 are now minimum required versions of Material UI packages (you might be able to get away with lower MUI versions for a while, but eventually MUI V6 APIs will be used internally by MRT and your project will break)
 - `@mui/x-date-pickers` v7.15.0 is now a minimum required dependency
