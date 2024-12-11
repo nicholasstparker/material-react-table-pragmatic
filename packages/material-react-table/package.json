@@ -1,7 +1,7 @@
 {
-  "version": "3.0.2",
+  "version": "3.0.2p",
   "license": "MIT",
-  "name": "material-react-table",
+  "name": "material-react-table-pragmatic",
   "description": "A fully featured Material UI V6 implementation of TanStack React Table V8, written from the ground up in TypeScript.",
   "author": "KevinVandy",
   "keywords": [
@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/KevinVandy/material-react-table"
+    "url": "https://github.com/nicholasstparker/material-react-table-pragmatic"
   },
   "funding": {
     "type": "github",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://www.material-react-table.com/",
   "bugs": {
-    "url": "https://github.com/KevinVandy/material-react-table/issues"
+    "url": "https://github.com/nicholasstparker/material-react-table-pragmatic/issues"
   },
   "sideEffects": false,
   "main": "dist/index.js",
