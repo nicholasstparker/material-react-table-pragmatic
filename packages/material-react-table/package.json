@@ -1,7 +1,7 @@
 {
   "version": "3.0.2pragmatic1.0",
   "license": "MIT",
-  "name": "material-react-table-pragmatic",
+  "name": "material-react-table-prag",
   "description": "A fully featured Material UI V6 implementation of TanStack React Table V8, written from the ground up in TypeScript.",
   "author": "KevinVandy",
   "keywords": [
